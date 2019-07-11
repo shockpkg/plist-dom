@@ -1,0 +1,146 @@
+import {
+	IToXmlOptioned
+} from '../options';
+import {
+	xmlElementChildElements,
+	xmlEntitiesEncode
+} from '../util';
+import {
+	Value
+} from '../value';
+
+import {ValueArray} from './array';
+import {ValueBoolean} from './boolean';
+import {ValueData} from './data';
+import {ValueDate} from './date';
+import {ValueInteger} from './integer';
+import {ValueReal} from './real';
+import {ValueString} from './string';
+
+let getChildTagNamesCache: any = null;
+const getChildTagNames = () => {
+	if (!getChildTagNamesCache) {
+		getChildTagNamesCache = new Map();
+		for (const Value of [
+			ValueArray,
+			ValueBoolean,
+			ValueData,
+			ValueDate,
+			ValueDict,
+			ValueInteger,
+			ValueReal,
+			ValueString
+		]) {
+			for (const t of Value.TAG_NAMES) {
+				getChildTagNamesCache.set(t, Value);
+			}
+		}
+	}
+	return getChildTagNamesCache as Map<string, new() => Value>;
+};
+
+/**
+ * ValueDict constructor.
+ */
+export class ValueDict extends Value {
+	/**
+	 * Value type.
+	 */
+	public static readonly TYPE = 'dict';
+
+	/**
+	 * Tag names.
+	 */
+	public static readonly TAG_NAMES = ['dict'];
+
+	/**
+	 * Child tag names.
+	 */
+	public static get CHILD_TAG_NAMES() {
+		return getChildTagNames();
+	}
+
+	/**
+	 * Child types.
+	 */
+	public get childTagNames() {
+		return (this.constructor as typeof ValueArray).CHILD_TAG_NAMES;
+	}
+
+	/**
+	 * Value value.
+	 */
+	public value = new Map<string, Value>();
+
+	constructor(value = new Map<string, Value>()) {
+		super();
+
+		this.value = value;
+	}
+
+	/**
+	 * Decode value from element.
+	 *
+	 * @param element XML element
+	 */
+	public fromXmlElement(element: Element) {
+		this._assertXmlTagname(element, 'dict');
+		const children = xmlElementChildElements(element);
+		const l = children.length;
+		if (l % 2) {
+			throw new Error(`Uneven number of child elements: ${l}`);
+		}
+		const v = new Map();
+		for (let i = 0; i < l; i += 2) {
+			const eK = children[i];
+			const eV = children[i + 1];
+			this._assertXmlTagname(eK, 'key');
+			const key = this._getXmlElementText(eK) || '';
+			const value = this.childFromXmlElement(eV);
+			v.set(key, value);
+		}
+		this.value = v;
+	}
+
+	/**
+	 * Decode child element from XML element.
+	 *
+	 * @param element XML element.
+	 * @return Value element.
+	 */
+	public childFromXmlElement(element: Element) {
+		const type = element.tagName;
+		const Value = this.childTagNames.get(type) || null;
+		if (!Value) {
+			throw new Error(`Unknown element type: ${type}`);
+		}
+		const r = new Value();
+		r.fromXmlElement(element);
+		return r;
+	}
+
+	/**
+	 * Encode element to string.
+	 *
+	 * @param optioned Optioned object.
+	 * @param depth Indent depth.
+	 * @return XML string.
+	 */
+	protected _toXml(optioned: IToXmlOptioned, depth: number) {
+		const p = optioned.indentString.repeat(depth);
+		const v = this.value;
+		if (!v.size) {
+			return `${p}<dict/>`;
+		}
+		const p2 = optioned.indentString.repeat(depth + 1);
+		const r = [`${p}<dict>`];
+		for (const [key, val] of v) {
+			r.push(
+				`${p2}<key>${xmlEntitiesEncode(key)}</key>`,
+				val.toXml(optioned, depth + 1)
+			);
+		}
+		r.push(`${p}</dict>`);
+		return r.join(optioned.newlineString);
+	}
+}
