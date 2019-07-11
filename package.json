@@ -1,8 +1,7 @@
 {
-	"private": true,
 	"name": "@shockpkg/plist-dom",
 	"description": "Package for parsing and encoding a plist file",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"keywords": [
 		"shockpkg",
 		"package",
