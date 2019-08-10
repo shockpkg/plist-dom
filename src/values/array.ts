@@ -21,6 +21,7 @@ const getChildTagNames = () => {
 	if (!getChildTagNamesCache) {
 		getChildTagNamesCache = new Map();
 		for (const Value of [
+			// eslint-disable-next-line @typescript-eslint/no-use-before-define
 			ValueArray,
 			ValueBoolean,
 			ValueData,
@@ -54,6 +55,8 @@ export class ValueArray extends Value {
 
 	/**
 	 * Child tag names.
+	 *
+	 * @returns Child tag names map.
 	 */
 	public static get CHILD_TAG_NAMES() {
 		return getChildTagNames();
@@ -61,6 +64,8 @@ export class ValueArray extends Value {
 
 	/**
 	 * Child types.
+	 *
+	 * @returns Child tag names map.
 	 */
 	public get childTagNames() {
 		return (this.constructor as typeof ValueArray).CHILD_TAG_NAMES;
@@ -80,7 +85,7 @@ export class ValueArray extends Value {
 	/**
 	 * Decode value from element.
 	 *
-	 * @param element XML element
+	 * @param element XML element.
 	 */
 	public fromXmlElement(element: Element) {
 		this._assertXmlTagname(element, 'array');
@@ -92,7 +97,7 @@ export class ValueArray extends Value {
 	 * Decode child element from XML element.
 	 *
 	 * @param element XML element.
-	 * @return Value element.
+	 * @returns Value element.
 	 */
 	public childFromXmlElement(element: Element) {
 		const type = element.tagName;
@@ -110,7 +115,7 @@ export class ValueArray extends Value {
 	 *
 	 * @param optioned Optioned object.
 	 * @param depth Indent depth.
-	 * @return XML string.
+	 * @returns XML string.
 	 */
 	protected _toXml(optioned: IToXmlOptioned, depth: number) {
 		const p = optioned.indentString.repeat(depth);

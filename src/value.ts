@@ -28,6 +28,8 @@ export abstract class Value extends Object {
 
 	/**
 	 * Value type.
+	 *
+	 * @returns Type string.
 	 */
 	public get type() {
 		return (this.constructor as typeof Value).TYPE;
@@ -38,7 +40,7 @@ export abstract class Value extends Object {
 	 *
 	 * @param options Options object.
 	 * @param depth Indent depth.
-	 * @return Xml string.
+	 * @returns Xml string.
 	 */
 	public toXml(options: IToXmlOptions | null = null, depth = 0) {
 		return this._toXml(toXmlOptionsOptioned(options), depth);
@@ -55,16 +57,10 @@ export abstract class Value extends Object {
 	}
 
 	/**
-	 * Decode value from element.
-	 *
-	 * @param element XML element
-	 */
-	public abstract fromXmlElement(element: Element): void;
-
-	/**
 	 * Get XML element text.
 	 *
-	 * @param element XML element
+	 * @param element XML element.
+	 * @returns Element text.
 	 */
 	protected _getXmlElementText(element: Element) {
 		const el = xmlElementText(element);
@@ -74,10 +70,10 @@ export abstract class Value extends Object {
 	/**
 	 * Assert XML element has no children.
 	 *
-	 * @param element XML element
+	 * @param element XML element.
 	 */
 	protected _assertNoXmlElementChildNodes(element: Element) {
-		const childNodes = element.childNodes;
+		const {childNodes} = element;
 		if (childNodes.length) {
 			throw new Error(`Unexpected child nodes: ${element.tagName}`);
 		}
@@ -86,8 +82,8 @@ export abstract class Value extends Object {
 	/**
 	 * Assert XML element has no children.
 	 *
-	 * @param element XML element
-	 * @param tagName XML element tag name
+	 * @param element XML element.
+	 * @param tagName XML element tag name.
 	 */
 	protected _assertXmlTagname(element: Element, tagName: string) {
 		const tn = element.tagName;
@@ -99,19 +95,26 @@ export abstract class Value extends Object {
 	/**
 	 * Create unexpected tagName error.
 	 *
-	 * @param tagName XML element tag name
-	 * @return Error object.
+	 * @param tagName XML element tag name.
+	 * @returns Error object.
 	 */
 	protected _errorUnexpectedTagname(tagName: string) {
 		return new Error(`Unexpected tagName: ${tagName}`);
 	}
 
 	/**
+	 * Decode value from element.
+	 *
+	 * @param element XML element.
+	 */
+	public abstract fromXmlElement(element: Element): void;
+
+	/**
 	 * Encode Value to string.
 	 *
 	 * @param optioned Optioned object.
 	 * @param depth Indent depth.
-	 * @return XML string.
+	 * @returns XML string.
 	 */
 	protected abstract _toXml(optioned: IToXmlOptioned, depth: number): string;
 }

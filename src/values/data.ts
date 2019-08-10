@@ -36,12 +36,12 @@ export class ValueData extends Value {
 	/**
 	 * Decode value from element.
 	 *
-	 * @param element XML element
+	 * @param element XML element.
 	 */
 	public fromXmlElement(element: Element) {
 		this._assertXmlTagname(element, 'data');
 		const b64 = this._getXmlElementText(element) || '';
-		if (!/^[0-9a-z\+\/\s]*[\s\=]*[\s\=]*$/i.test(b64)) {
+		if (!/^[0-9a-z+/\s]*[\s=]*[\s=]*$/i.test(b64)) {
 			throw new Error(`Invalid base64 data: ${b64}`);
 		}
 		this.value = Buffer.from(b64, 'base64');
@@ -52,7 +52,7 @@ export class ValueData extends Value {
 	 *
 	 * @param optioned Optioned object.
 	 * @param depth Indent depth.
-	 * @return XML string.
+	 * @returns XML string.
 	 */
 	protected _toXml(optioned: IToXmlOptioned, depth: number) {
 		const p = optioned.indentString.repeat(depth);

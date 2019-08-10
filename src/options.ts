@@ -3,47 +3,49 @@ import {
 } from './util';
 
 export interface IToXmlOptions {
+
 	/**
 	 * Indent string.
 	 *
-	 * @defaultValue '\t'
+	 * @default '\t'
 	 */
 	indentString?: string;
 
 	/**
 	 * Newline string.
 	 *
-	 * @defaultValue '\n'
+	 * @default '\n'
 	 */
 	newlineString?: string;
 
 	/**
 	 * Data columns.
 	 *
-	 * @defaultValue 68
+	 * @default 68
 	 */
 	dataColumns?: number;
 }
 
 export interface IToXmlOptioned {
+
 	/**
 	 * Indent string.
 	 *
-	 * @defaultValue '\t'
+	 * @default '\t'
 	 */
 	indentString: string;
 
 	/**
 	 * Newline string.
 	 *
-	 * @defaultValue '\n'
+	 * @default '\n'
 	 */
 	newlineString: string;
 
 	/**
 	 * Data columns.
 	 *
-	 * @defaultValue 68
+	 * @default 68
 	 */
 	dataColumns: number;
 }
@@ -52,7 +54,7 @@ export interface IToXmlOptioned {
  * Convert IToXmlOptions to IToXmlOptioned with defaults.
  *
  * @param options Options object.
- * @return Optioned object.
+ * @returns Optioned object.
  */
 export function toXmlOptionsOptioned(
 	options: IToXmlOptions | null = null

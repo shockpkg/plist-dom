@@ -1,4 +1,4 @@
-// tslint:disable:completed-docs
+/* eslint-env jasmine */
 
 import {
 	Plist
@@ -7,6 +7,12 @@ import {
 	ValueBoolean
 } from './values/boolean';
 
+/**
+ * Extract plist body XML.
+ *
+ * @param s XML string.
+ * @returns XML body.
+ */
 function plistBodyExtract(s: string) {
 	return s.replace(/^[\s\S]*<plist[^>]*>([\s\S]*)<\/plist>\n*$/, '$1');
 }

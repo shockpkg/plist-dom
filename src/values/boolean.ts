@@ -4,6 +4,7 @@ import {
 import {
 	Value
 } from '../value';
+
 /**
  * ValueBoolean constructor.
  */
@@ -32,11 +33,11 @@ export class ValueBoolean extends Value {
 	/**
 	 * Decode value from element.
 	 *
-	 * @param element XML element
+	 * @param element XML element.
 	 */
 	public fromXmlElement(element: Element) {
 		this._assertNoXmlElementChildNodes(element);
-		const tagName = element.tagName;
+		const {tagName} = element;
 		if (tagName === 'true') {
 			this.value = true;
 			return;
@@ -53,7 +54,7 @@ export class ValueBoolean extends Value {
 	 *
 	 * @param optioned Optioned object.
 	 * @param depth Indent depth.
-	 * @return XML string.
+	 * @returns XML string.
 	 */
 	protected _toXml(optioned: IToXmlOptioned, depth: number) {
 		const p = optioned.indentString.repeat(depth);

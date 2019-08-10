@@ -1,4 +1,5 @@
-// tslint:disable:completed-docs
+/* eslint-env jasmine */
+/* eslint-disable max-nested-callbacks */
 
 import {
 	ValueString

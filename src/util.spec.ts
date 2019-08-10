@@ -1,4 +1,4 @@
-// tslint:disable:completed-docs
+/* eslint-env jasmine */
 
 import {
 	stringChunk,
@@ -39,7 +39,7 @@ describe('util', () => {
 		});
 
 		it('declaration + doctype', () => {
-			const o = xmlDecode(`\n${declaration}\s${doctype}\n<xml>a</xml>\n`);
+			const o = xmlDecode(`\n${declaration}\n${doctype}\n<xml>a</xml>\n`);
 			expect(o.declaration).toBe(declaration);
 			expect(o.doctype).toBe(doctype);
 			expect(o.documentElement.toString()).toBe('<xml>a</xml>');

@@ -36,7 +36,7 @@ export class ValueString extends Value {
 	/**
 	 * Decode value from element.
 	 *
-	 * @param element XML element
+	 * @param element XML element.
 	 */
 	public fromXmlElement(element: Element) {
 		this._assertXmlTagname(element, 'string');
@@ -48,7 +48,7 @@ export class ValueString extends Value {
 	 *
 	 * @param optioned Optioned object.
 	 * @param depth Indent depth.
-	 * @return XML string.
+	 * @returns XML string.
 	 */
 	protected _toXml(optioned: IToXmlOptioned, depth: number) {
 		const p = optioned.indentString.repeat(depth);

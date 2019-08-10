@@ -10,12 +10,13 @@ import {DOMParser} from 'xmldom';
  *
  * @param value Value.
  * @param defaultValue Default value.
- * @return Value or the default value if undefined.
+ * @returns Value or the default value if undefined.
  */
 export function defaultValue<T, U>(
 	value: T,
 	defaultValue: U
 ): Exclude<T | U, undefined> {
+	// eslint-disable-next-line no-undefined
 	return value === undefined ? defaultValue : (value as any);
 }
 
@@ -23,7 +24,7 @@ export function defaultValue<T, U>(
  * Default null if value is undefined.
  *
  * @param value Value.
- * @return Value or null if undefined.
+ * @returns Value or null if undefined.
  */
 export function defaultNull<T>(value: T) {
 	return defaultValue(value, null);
@@ -33,7 +34,7 @@ export function defaultNull<T>(value: T) {
  * Default false if value is undefined.
  *
  * @param value Value.
- * @return Value or false if undefined.
+ * @returns Value or false if undefined.
  */
 export function defaultFalse<T>(value: T) {
 	return defaultValue(value, false);
@@ -43,7 +44,7 @@ export function defaultFalse<T>(value: T) {
  * Default true if value is undefined.
  *
  * @param value Value.
- * @return Value or true if undefined.
+ * @returns Value or true if undefined.
  */
 export function defaultTrue<T>(value: T) {
 	return defaultValue(value, true);
@@ -53,7 +54,7 @@ export function defaultTrue<T>(value: T) {
  * Encode string for XML.
  *
  * @param value String value.
- * @return Escaped string.
+ * @returns Escaped string.
  */
 export function xmlEntitiesEncode(value: string) {
 	return encodeXML(value);
@@ -63,7 +64,7 @@ export function xmlEntitiesEncode(value: string) {
  * Decode string for XML.
  *
  * @param value Encoded value.
- * @return Decoded string.
+ * @returns Decoded string.
  */
 export function xmlEntitiesDecode(value: string) {
 	return decodeXML(value);
@@ -73,7 +74,7 @@ export function xmlEntitiesDecode(value: string) {
  * Decode an XML string.
  *
  * @param xml XML string.
- * @return Decoded declaration, doctype, and document element.
+ * @returns Decoded declaration, doctype, and document element.
  */
 export function xmlDecode(xml: string) {
 	let declaration: string | null = null;
@@ -99,7 +100,7 @@ export function xmlDecode(xml: string) {
 		throw new Error(`XML decode error: ${errors[0]}`);
 	}
 
-	const childNodes = doc.childNodes;
+	const {childNodes} = doc;
 	const documentElement =
 		(doc.documentElement as (Element | null)) || null;
 
@@ -133,10 +134,10 @@ export function xmlDecode(xml: string) {
  * Throws if non-whitespace nodes are found.
  *
  * @param element XML element.
- * @return XML element list.
+ * @returns XML element list.
  */
 export function xmlElementChildElements(element: Element) {
-	const childNodes = element.childNodes;
+	const {childNodes} = element;
 	const r: Element[] = [];
 	for (let i = 0, l = childNodes.length; i < l; i++) {
 		const childNode = childNodes[i];
@@ -144,7 +145,7 @@ export function xmlElementChildElements(element: Element) {
 			r.push(childNode);
 			continue;
 		}
-		const nodeValue = childNode.nodeValue;
+		const {nodeValue} = childNode;
 		if (nodeValue && !/^\s*$/.test(nodeValue)) {
 			throw new Error(`Found non-element children: ${element.tagName}`);
 		}
@@ -157,10 +158,10 @@ export function xmlElementChildElements(element: Element) {
  * Returns null if none, throws if multiple elements.
  *
  * @param element XML element.
- * @return XML text node list.
+ * @returns XML text node list.
  */
 export function xmlElementText(element: Element) {
-	const childNodes = element.childNodes;
+	const {childNodes} = element;
 	let r: Text | null = null;
 	for (let i = 0, l = childNodes.length; i < l; i++) {
 		if (i) {
@@ -187,7 +188,7 @@ export function xmlElementText(element: Element) {
  *
  * @param str Original string.
  * @param len Chunk sizes.
- * @return String chunks.
+ * @returns String chunks.
  */
 export function stringChunk(str: string, len: number) {
 	const r: string[] = [];
@@ -202,7 +203,7 @@ export function stringChunk(str: string, len: number) {
  * Decode base 10 integer from string, or throw.
  *
  * @param str Integer string.
- * @return Decoded integer.
+ * @returns Decoded integer.
  */
 export function decodeIntBase10(str: string) {
 	const v = +str;

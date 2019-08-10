@@ -60,7 +60,8 @@ export class Plist extends Object {
 	/**
 	 * Encode documents to string.
 	 *
-	 * @return XML string.
+	 * @param options Encode options.
+	 * @returns XML string.
 	 */
 	public toXml(options: IToXmlOptions | null = null) {
 		return this._toXml(toXmlOptionsOptioned(options));
@@ -83,16 +84,16 @@ export class Plist extends Object {
 	/**
 	 * Decode document from element.
 	 *
-	 * @param element XML element
-	 * @param declaration XML declaration
-	 * @param doctype XML doctype
+	 * @param element XML element.
+	 * @param declaration XML declaration.
+	 * @param doctype XML doctype.
 	 */
 	public fromXmlElement(
 		element: Element,
 		declaration: string | null = null,
 		doctype: string | null = null
 	) {
-		const tagName = element.tagName;
+		const {tagName} = element;
 		if (tagName !== 'plist') {
 			throw new Error(`Unexpected root plist tag name: ${tagName}`);
 		}
@@ -113,7 +114,7 @@ export class Plist extends Object {
 	 * Decode child element from XML element.
 	 *
 	 * @param element XML element.
-	 * @return Value element.
+	 * @returns Value element.
 	 */
 	public childFromXmlElement(element: Element) {
 		const a = new ValueArray();
@@ -123,7 +124,8 @@ export class Plist extends Object {
 	/**
 	 * Encode documents to string.
 	 *
-	 * @return XML string.
+	 * @param optioned Encode options.
+	 * @returns XML string.
 	 */
 	protected _toXml(optioned: IToXmlOptioned) {
 		const v = this.value;
