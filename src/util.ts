@@ -1,9 +1,10 @@
-import {
-	decodeXML,
-	encodeXML
-} from 'entities';
+import * as entities from 'entities';
 // @ts-ignore
-import {DOMParser} from 'xmldom';
+import xmldom from 'xmldom';
+
+const {DOMParser} = xmldom;
+const decodeXML = entities.decodeXML || (entities as any).default.decodeXML;
+const encodeXML = entities.encodeXML || (entities as any).default.encodeXML;
 
 /**
  * Default value if value is undefined.
