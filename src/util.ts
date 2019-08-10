@@ -2,9 +2,10 @@ import * as entities from 'entities';
 // @ts-ignore
 import xmldom from 'xmldom';
 
-const {DOMParser} = xmldom;
+// Handle module loader differences between CJS and ESM.
 const decodeXML = entities.decodeXML || (entities as any).default.decodeXML;
 const encodeXML = entities.encodeXML || (entities as any).default.encodeXML;
+const {DOMParser} = xmldom;
 
 /**
  * Default value if value is undefined.
