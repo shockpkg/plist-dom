@@ -1,6 +1,3 @@
-/* eslint-env jasmine */
-/* eslint-disable max-nested-callbacks */
-
 import {
 	ValueBoolean
 } from './boolean';
