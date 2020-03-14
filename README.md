@@ -14,7 +14,7 @@ Package for parsing and encoding a plist document
 
 # Overview
 
-Parses and encodes Plist XML documents detween a DOM and XML data.
+Parses and encodes Plist XML documents between a DOM and XML data.
 
 
 # Usage
