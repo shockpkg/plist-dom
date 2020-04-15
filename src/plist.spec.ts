@@ -33,18 +33,22 @@ describe('document', () => {
 		describe('toXml', () => {
 			it('null', () => {
 				const doc = new Plist();
-				doc.xmlIndented = false;
-				expect(plistBodyExtract(doc.toXml())).toBe('\n');
-				doc.xmlIndented = true;
-				expect(plistBodyExtract(doc.toXml())).toBe('\n');
+				expect(plistBodyExtract(doc.toXml({
+					indentRoot: false
+				}))).toBe('\n');
+				expect(plistBodyExtract(doc.toXml({
+					indentRoot: true
+				}))).toBe('\n');
 			});
 
 			it('true', () => {
 				const doc = new Plist(new ValueBoolean(true));
-				doc.xmlIndented = false;
-				expect(plistBodyExtract(doc.toXml())).toBe('\n<true/>\n');
-				doc.xmlIndented = true;
-				expect(plistBodyExtract(doc.toXml())).toBe('\n\t<true/>\n');
+				expect(plistBodyExtract(doc.toXml({
+					indentRoot: false
+				}))).toBe('\n<true/>\n');
+				expect(plistBodyExtract(doc.toXml({
+					indentRoot: true
+				}))).toBe('\n\t<true/>\n');
 			});
 
 			it('xmlDeclaration', () => {

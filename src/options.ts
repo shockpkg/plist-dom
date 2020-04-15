@@ -24,6 +24,13 @@ export interface IToXmlOptions {
 	 * @default 68
 	 */
 	dataColumns?: number;
+
+	/**
+	 * Indent root element content.
+	 *
+	 * @default false
+	 */
+	indentRoot?: boolean;
 }
 
 export interface IToXmlOptioned {
@@ -48,6 +55,13 @@ export interface IToXmlOptioned {
 	 * @default 68
 	 */
 	dataColumns: number;
+
+	/**
+	 * Indent root element content.
+	 *
+	 * @default false
+	 */
+	indentRoot: boolean;
 }
 
 /**
@@ -63,6 +77,7 @@ export function toXmlOptionsOptioned(
 	return {
 		indentString: defaultValue(options.indentString, '\t'),
 		newlineString: defaultValue(options.newlineString, '\n'),
-		dataColumns: defaultValue(options.dataColumns, 68)
+		dataColumns: defaultValue(options.dataColumns, 68),
+		indentRoot: defaultValue(options.indentRoot, false)
 	};
 }

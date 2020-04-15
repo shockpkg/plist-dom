@@ -43,6 +43,8 @@ export class Plist extends Object {
 
 	/**
 	 * If body is indented.
+	 *
+	 * @deprecated Use toXml IToXmlOptions option to indent the body.
 	 */
 	public xmlIndented = false;
 
@@ -129,7 +131,7 @@ export class Plist extends Object {
 	 */
 	protected _toXml(optioned: Readonly<IToXmlOptioned>) {
 		const v = this.value;
-		const d = this.xmlIndented ? 1 : 0;
+		const d = (optioned.indentRoot || this.xmlIndented) ? 1 : 0;
 		return [
 			...[this.xmlDeclaration, this.xmlDoctype].filter(Boolean),
 			'<plist version="1.0">',
