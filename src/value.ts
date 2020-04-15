@@ -42,7 +42,7 @@ export abstract class Value extends Object {
 	 * @param depth Indent depth.
 	 * @returns Xml string.
 	 */
-	public toXml(options: IToXmlOptions | null = null, depth = 0) {
+	public toXml(options: Readonly<IToXmlOptions> | null = null, depth = 0) {
 		return this._toXml(toXmlOptionsOptioned(options), depth);
 	}
 
@@ -116,5 +116,8 @@ export abstract class Value extends Object {
 	 * @param depth Indent depth.
 	 * @returns XML string.
 	 */
-	protected abstract _toXml(optioned: IToXmlOptioned, depth: number): string;
+	protected abstract _toXml(
+		optioned: Readonly<IToXmlOptioned>,
+		depth: number
+	): string;
 }

@@ -56,7 +56,7 @@ export class ValueBoolean extends Value {
 	 * @param depth Indent depth.
 	 * @returns XML string.
 	 */
-	protected _toXml(optioned: IToXmlOptioned, depth: number) {
+	protected _toXml(optioned: Readonly<IToXmlOptioned>, depth: number) {
 		const p = optioned.indentString.repeat(depth);
 		return this.value ? `${p}<true/>` : `${p}<false/>`;
 	}

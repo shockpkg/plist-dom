@@ -63,7 +63,7 @@ export class Plist extends Object {
 	 * @param options Encode options.
 	 * @returns XML string.
 	 */
-	public toXml(options: IToXmlOptions | null = null) {
+	public toXml(options: Readonly<IToXmlOptions> | null = null) {
 		return this._toXml(toXmlOptionsOptioned(options));
 	}
 
@@ -127,7 +127,7 @@ export class Plist extends Object {
 	 * @param optioned Encode options.
 	 * @returns XML string.
 	 */
-	protected _toXml(optioned: IToXmlOptioned) {
+	protected _toXml(optioned: Readonly<IToXmlOptioned>) {
 		const v = this.value;
 		const d = this.xmlIndented ? 1 : 0;
 		return [

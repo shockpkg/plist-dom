@@ -50,7 +50,7 @@ export class ValueString extends Value {
 	 * @param depth Indent depth.
 	 * @returns XML string.
 	 */
-	protected _toXml(optioned: IToXmlOptioned, depth: number) {
+	protected _toXml(optioned: Readonly<IToXmlOptioned>, depth: number) {
 		const p = optioned.indentString.repeat(depth);
 		return `${p}<string>${xmlEntitiesEncode(this.value)}</string>`;
 	}

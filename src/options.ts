@@ -57,7 +57,7 @@ export interface IToXmlOptioned {
  * @returns Optioned object.
  */
 export function toXmlOptionsOptioned(
-	options: IToXmlOptions | null = null
+	options: Readonly<IToXmlOptions> | null = null
 ): IToXmlOptioned {
 	options = options || {};
 	return {
