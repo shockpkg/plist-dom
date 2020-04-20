@@ -2,6 +2,7 @@ import {
 	IToXmlOptioned
 } from '../options';
 import {
+	IElement,
 	assertInteger,
 	decodeIntBase10
 } from '../util';
@@ -40,7 +41,7 @@ export class ValueInteger extends Value {
 	 *
 	 * @param element XML element.
 	 */
-	public fromXmlElement(element: Element) {
+	public fromXmlElement(element: IElement) {
 		this._assertXmlTagname(element, 'integer');
 		this.value = decodeIntBase10(this._getXmlElementText(element) || '');
 	}

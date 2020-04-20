@@ -2,6 +2,9 @@ import {
 	IToXmlOptioned
 } from '../options';
 import {
+	IElement
+} from '../util';
+import {
 	Value
 } from '../value';
 
@@ -35,7 +38,7 @@ export class ValueBoolean extends Value {
 	 *
 	 * @param element XML element.
 	 */
-	public fromXmlElement(element: Element) {
+	public fromXmlElement(element: IElement) {
 		this._assertNoXmlElementChildNodes(element);
 		const {tagName} = element;
 		if (tagName === 'true') {

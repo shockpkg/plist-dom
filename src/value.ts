@@ -4,6 +4,7 @@ import {
 	toXmlOptionsOptioned
 } from './options';
 import {
+	IElement,
 	xmlDecode,
 	xmlElementText
 } from './util';
@@ -62,7 +63,7 @@ export abstract class Value extends Object {
 	 * @param element XML element.
 	 * @returns Element text.
 	 */
-	protected _getXmlElementText(element: Element) {
+	protected _getXmlElementText(element: IElement) {
 		const el = xmlElementText(element);
 		return el ? el.nodeValue : '';
 	}
@@ -72,7 +73,7 @@ export abstract class Value extends Object {
 	 *
 	 * @param element XML element.
 	 */
-	protected _assertNoXmlElementChildNodes(element: Element) {
+	protected _assertNoXmlElementChildNodes(element: IElement) {
 		const {childNodes} = element;
 		if (childNodes.length) {
 			throw new Error(`Unexpected child nodes: ${element.tagName}`);
@@ -85,7 +86,7 @@ export abstract class Value extends Object {
 	 * @param element XML element.
 	 * @param tagName XML element tag name.
 	 */
-	protected _assertXmlTagname(element: Element, tagName: string) {
+	protected _assertXmlTagname(element: IElement, tagName: string) {
 		const tn = element.tagName;
 		if (tn !== tagName) {
 			throw this._errorUnexpectedTagname(tn);
@@ -107,7 +108,7 @@ export abstract class Value extends Object {
 	 *
 	 * @param element XML element.
 	 */
-	public abstract fromXmlElement(element: Element): void;
+	public abstract fromXmlElement(element: IElement): void;
 
 	/**
 	 * Encode Value to string.

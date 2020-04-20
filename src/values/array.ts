@@ -2,6 +2,7 @@ import {
 	IToXmlOptioned
 } from '../options';
 import {
+	IElement,
 	xmlElementChildElements
 } from '../util';
 import {
@@ -87,7 +88,7 @@ export class ValueArray extends Value {
 	 *
 	 * @param element XML element.
 	 */
-	public fromXmlElement(element: Element) {
+	public fromXmlElement(element: IElement) {
 		this._assertXmlTagname(element, 'array');
 		const children = xmlElementChildElements(element);
 		this.value = children.map(el => this.childFromXmlElement(el));
@@ -99,7 +100,7 @@ export class ValueArray extends Value {
 	 * @param element XML element.
 	 * @returns Value element.
 	 */
-	public childFromXmlElement(element: Element) {
+	public childFromXmlElement(element: IElement) {
 		const type = element.tagName;
 		const Value = this.childTagNames.get(type) || null;
 		if (!Value) {

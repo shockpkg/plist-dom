@@ -2,6 +2,7 @@ import {
 	IToXmlOptioned
 } from '../options';
 import {
+	IElement,
 	stringChunk
 } from '../util';
 import {
@@ -38,7 +39,7 @@ export class ValueData extends Value {
 	 *
 	 * @param element XML element.
 	 */
-	public fromXmlElement(element: Element) {
+	public fromXmlElement(element: IElement) {
 		this._assertXmlTagname(element, 'data');
 		const b64 = this._getXmlElementText(element) || '';
 		if (!/^[0-9a-z+/\s]*[\s=]*[\s=]*$/i.test(b64)) {

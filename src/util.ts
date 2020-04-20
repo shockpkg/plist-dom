@@ -7,6 +7,18 @@ const decodeXML = entities.decodeXML || (entities as any).default.decodeXML;
 const encodeXML = entities.encodeXML || (entities as any).default.encodeXML;
 const {DOMParser} = xmldom;
 
+export interface IText {
+	nodeValue: string | null;
+}
+
+export interface IElement {
+	readonly tagName: string;
+	childNodes: {
+		length: number;
+		[index: number]: IElement | IText;
+	};
+}
+
 /**
  * Default value if value is undefined.
  *
@@ -104,7 +116,7 @@ export function xmlDecode(xml: string) {
 
 	const {childNodes} = doc;
 	const documentElement =
-		(doc.documentElement as (Element | null)) || null;
+		(doc.documentElement as (IElement | null)) || null;
 
 	for (let i = 0, l = childNodes.length; i < l; i++) {
 		const childNode = childNodes[i];
@@ -138,13 +150,13 @@ export function xmlDecode(xml: string) {
  * @param element XML element.
  * @returns XML element list.
  */
-export function xmlElementChildElements(element: Element) {
+export function xmlElementChildElements<T extends IElement>(element: T): T[] {
 	const {childNodes} = element;
-	const r: Element[] = [];
+	const r = [];
 	for (let i = 0, l = childNodes.length; i < l; i++) {
 		const childNode = childNodes[i];
 		if ('tagName' in childNode) {
-			r.push(childNode);
+			r.push(childNode as T);
 			continue;
 		}
 		const {nodeValue} = childNode;
@@ -162,9 +174,9 @@ export function xmlElementChildElements(element: Element) {
  * @param element XML element.
  * @returns XML text node list.
  */
-export function xmlElementText(element: Element) {
+export function xmlElementText(element: IElement) {
 	const {childNodes} = element;
-	let r: Text | null = null;
+	let r: IText | null = null;
 	for (let i = 0, l = childNodes.length; i < l; i++) {
 		if (i) {
 			throw new Error(`Multiple child elements: ${element.tagName}`);
@@ -176,13 +188,13 @@ export function xmlElementText(element: Element) {
 			'data' in childNode &&
 			'nodeValue' in childNode
 		) {
-			r = childNode;
+			r = childNode as IText;
 		}
 		else {
 			throw new Error(`Unexpected child element: ${element.tagName}`);
 		}
 	}
-	return r as (Text | null);
+	return r;
 }
 
 /**

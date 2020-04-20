@@ -4,6 +4,7 @@ import {
 	toXmlOptionsOptioned
 } from './options';
 import {
+	IElement,
 	xmlDecode,
 	xmlElementChildElements
 } from './util';
@@ -91,7 +92,7 @@ export class Plist extends Object {
 	 * @param doctype XML doctype.
 	 */
 	public fromXmlElement(
-		element: Element,
+		element: IElement,
 		declaration: string | null = null,
 		doctype: string | null = null
 	) {
@@ -118,7 +119,7 @@ export class Plist extends Object {
 	 * @param element XML element.
 	 * @returns Value element.
 	 */
-	public childFromXmlElement(element: Element) {
+	public childFromXmlElement(element: IElement) {
 		const a = new ValueArray();
 		return a.childFromXmlElement(element);
 	}

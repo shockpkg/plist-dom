@@ -2,6 +2,7 @@ import {
 	IToXmlOptioned
 } from '../options';
 import {
+	IElement,
 	xmlEntitiesEncode
 } from '../util';
 import {
@@ -38,7 +39,7 @@ export class ValueString extends Value {
 	 *
 	 * @param element XML element.
 	 */
-	public fromXmlElement(element: Element) {
+	public fromXmlElement(element: IElement) {
 		this._assertXmlTagname(element, 'string');
 		this.value = this._getXmlElementText(element) || '';
 	}
