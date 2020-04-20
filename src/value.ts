@@ -37,6 +37,32 @@ export abstract class Value extends Object {
 	}
 
 	/**
+	 * Cast to specific type or null.
+	 *
+	 * @param Type Type constructor.
+	 * @returns This object or null.
+	 */
+	public castTo<T extends typeof Value>(Type: T): T['prototype'] | null {
+		return this.type === Type.TYPE ? this : null;
+	}
+
+	/**
+	 * Cast to specific type or throw.
+	 *
+	 * @param Type Type constructor.
+	 * @returns This object.
+	 */
+	public castAs<T extends typeof Value>(Type: T): T['prototype'] {
+		const casted = this.castTo(Type);
+		if (!casted) {
+			throw new Error(
+				`Cannot cast type '${this.type}' to '${Type.TYPE}'`
+			);
+		}
+		return casted;
+	}
+
+	/**
 	 * Encode Value to string.
 	 *
 	 * @param options Options object.
