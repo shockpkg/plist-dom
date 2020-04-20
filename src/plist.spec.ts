@@ -4,6 +4,9 @@ import {
 import {
 	ValueBoolean
 } from './values/boolean';
+import {
+	ValueString
+} from './values/string';
 
 /**
  * Extract plist body XML.
@@ -27,6 +30,40 @@ describe('document', () => {
 				const value = new ValueBoolean(true);
 				const doc = new Plist(value);
 				expect(doc.value).toBe(value);
+			});
+		});
+
+		describe('valueCastTo', () => {
+			it('null', () => {
+				const doc = new Plist();
+				expect(doc.valueCastTo(ValueString)).toBeNull();
+			});
+
+			it('same type', () => {
+				const doc = new Plist(new ValueBoolean());
+				expect(doc.valueCastTo(ValueBoolean)).toBeTruthy();
+			});
+
+			it('different type', () => {
+				const doc = new Plist(new ValueBoolean());
+				expect(doc.valueCastTo(ValueString)).toBeNull();
+			});
+		});
+
+		describe('valueCastAs', () => {
+			it('null', () => {
+				const doc = new Plist();
+				expect(() => doc.valueCastAs(ValueString)).toThrow();
+			});
+
+			it('same type', () => {
+				const doc = new Plist(new ValueBoolean());
+				expect(doc.valueCastAs(ValueBoolean)).toBeTruthy();
+			});
+
+			it('different type', () => {
+				const doc = new Plist(new ValueBoolean());
+				expect(() => doc.valueCastAs(ValueString)).toThrow();
 			});
 		});
 

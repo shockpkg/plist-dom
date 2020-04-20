@@ -61,6 +61,31 @@ export class Plist extends Object {
 	}
 
 	/**
+	 * Cast to specific type or null.
+	 *
+	 * @param Type Type constructor.
+	 * @returns The object or null.
+	 */
+	public valueCastTo<T extends typeof Value>(Type: T): T['prototype'] | null {
+		const {value} = this;
+		return value ? value.castTo(Type) : null;
+	}
+
+	/**
+	 * Cast to specific type or throw.
+	 *
+	 * @param Type Type constructor.
+	 * @returns The object.
+	 */
+	public valueCastAs<T extends typeof Value>(Type: T): T['prototype'] {
+		const casted = this.valueCastTo(Type);
+		if (!casted) {
+			throw new Error(`Cannot cast value to type '${Type.TYPE}'`);
+		}
+		return casted;
+	}
+
+	/**
 	 * Encode documents to string.
 	 *
 	 * @param options Encode options.
