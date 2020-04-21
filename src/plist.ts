@@ -61,6 +61,19 @@ export class Plist extends Object {
 	}
 
 	/**
+	 * Get value or throw if null.
+	 *
+	 * @returns The value.
+	 */
+	public getValue() {
+		const {value} = this;
+		if (!value) {
+			throw new Error('Value is null');
+		}
+		return value;
+	}
+
+	/**
 	 * Cast to specific type or null.
 	 *
 	 * @param Type Type constructor.

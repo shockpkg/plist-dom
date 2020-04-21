@@ -85,6 +85,75 @@ export class ValueDict extends Value {
 	}
 
 	/**
+	 * Dictionary size.
+	 *
+	 * @returns The size.
+	 */
+	public get size() {
+		return this.value.size;
+	}
+
+	/**
+	 * Check if key exists.
+	 *
+	 * @param key Dictionary key.
+	 * @returns The value or null.
+	 */
+	public has(key: string) {
+		return this.value.has(key);
+	}
+
+	/**
+	 * Get value for key or null if does not exist.
+	 *
+	 * @param key Dictionary key.
+	 * @returns The value or null.
+	 */
+	public get(key: string) {
+		return this.value.get(key) || null;
+	}
+
+	/**
+	 * Get value for key or throw.
+	 *
+	 * @param key Dictionary key.
+	 * @returns The value.
+	 */
+	public getValue(key: string) {
+		const r = this.get(key);
+		if (!r) {
+			throw new Error(`Key is null: ${key}`);
+		}
+		return r;
+	}
+
+	/**
+	 * Set value for key.
+	 *
+	 * @param key Dictionary key.
+	 * @param value Value object.
+	 */
+	public set(key: string, value: Value) {
+		this.value.set(key, value);
+	}
+
+	/**
+	 * Delete value for key.
+	 *
+	 * @param key Dictionary key.
+	 */
+	public delete(key: string) {
+		this.value.delete(key);
+	}
+
+	/**
+	 * Clear dictionary.
+	 */
+	public clear() {
+		this.value.clear();
+	}
+
+	/**
 	 * Decode value from element.
 	 *
 	 * @param element XML element.

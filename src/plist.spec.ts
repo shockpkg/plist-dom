@@ -33,6 +33,18 @@ describe('document', () => {
 			});
 		});
 
+		describe('getValue', () => {
+			it('null', () => {
+				const doc = new Plist();
+				expect(() => doc.getValue()).toThrow();
+			});
+
+			it('boolean', () => {
+				const doc = new Plist(new ValueBoolean());
+				expect(doc.getValue()).toBeTruthy();
+			});
+		});
+
 		describe('valueCastTo', () => {
 			it('null', () => {
 				const doc = new Plist();
