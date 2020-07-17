@@ -5,6 +5,7 @@ import xmldom from 'xmldom';
 // Handle module loader differences between CJS and ESM.
 const decodeXML = entities.decodeXML || (entities as any).default.decodeXML;
 const encodeXML = entities.encodeXML || (entities as any).default.encodeXML;
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const {DOMParser} = xmldom;
 
 export interface IText {
