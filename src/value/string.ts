@@ -39,7 +39,7 @@ export class ValueString extends Value {
 	 *
 	 * @param element XML element.
 	 */
-	public fromXmlElement(element: IElement) {
+	public fromXmlElement(element: Readonly<IElement>) {
 		this._assertXmlTagname(element, 'string');
 		this.value = this._getXmlElementText(element) || '';
 	}

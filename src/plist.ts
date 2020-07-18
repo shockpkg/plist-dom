@@ -130,7 +130,7 @@ export class Plist extends Object {
 	 * @param doctype XML doctype.
 	 */
 	public fromXmlElement(
-		element: IElement,
+		element: Readonly<IElement>,
 		declaration: string | null = null,
 		doctype: string | null = null
 	) {

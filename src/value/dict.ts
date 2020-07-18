@@ -158,7 +158,7 @@ export class ValueDict extends Value {
 	 *
 	 * @param element XML element.
 	 */
-	public fromXmlElement(element: IElement) {
+	public fromXmlElement(element: Readonly<IElement>) {
 		this._assertXmlTagname(element, 'dict');
 		const children = xmlElementChildElements(element);
 		const l = children.length;
@@ -183,7 +183,7 @@ export class ValueDict extends Value {
 	 * @param element XML element.
 	 * @returns Value element.
 	 */
-	public childFromXmlElement(element: IElement) {
+	public childFromXmlElement(element: Readonly<IElement>) {
 		const type = element.tagName;
 		const Value = this.childTagNames.get(type) || null;
 		if (!Value) {

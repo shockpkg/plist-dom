@@ -38,7 +38,7 @@ export class ValueDate extends Value {
 	 *
 	 * @param element XML element.
 	 */
-	public fromXmlElement(element: IElement) {
+	public fromXmlElement(element: Readonly<IElement>) {
 		this._assertXmlTagname(element, 'date');
 		const text = this._getXmlElementText(element) || '';
 		const v = new Date(text);

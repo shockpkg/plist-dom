@@ -89,7 +89,7 @@ export abstract class Value extends Object {
 	 * @param element XML element.
 	 * @returns Element text.
 	 */
-	protected _getXmlElementText(element: IElement) {
+	protected _getXmlElementText(element: Readonly<IElement>) {
 		const el = xmlElementText(element);
 		return el ? el.nodeValue : '';
 	}
@@ -99,7 +99,7 @@ export abstract class Value extends Object {
 	 *
 	 * @param element XML element.
 	 */
-	protected _assertNoXmlElementChildNodes(element: IElement) {
+	protected _assertNoXmlElementChildNodes(element: Readonly<IElement>) {
 		const {childNodes} = element;
 		if (childNodes.length) {
 			throw new Error(`Unexpected child nodes: ${element.tagName}`);
@@ -112,7 +112,7 @@ export abstract class Value extends Object {
 	 * @param element XML element.
 	 * @param tagName XML element tag name.
 	 */
-	protected _assertXmlTagname(element: IElement, tagName: string) {
+	protected _assertXmlTagname(element: Readonly<IElement>, tagName: string) {
 		const tn = element.tagName;
 		if (tn !== tagName) {
 			throw this._errorUnexpectedTagname(tn);
@@ -134,7 +134,7 @@ export abstract class Value extends Object {
 	 *
 	 * @param element XML element.
 	 */
-	public abstract fromXmlElement(element: IElement): void;
+	public abstract fromXmlElement(element: Readonly<IElement>): void;
 
 	/**
 	 * Encode Value to string.

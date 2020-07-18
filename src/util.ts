@@ -117,7 +117,7 @@ export function xmlDecode(xml: string) {
 
 	const {childNodes} = doc;
 	const documentElement =
-		(doc.documentElement as (IElement | null)) || null;
+		(doc.documentElement as (Readonly<IElement> | null)) || null;
 
 	for (let i = 0, l = childNodes.length; i < l; i++) {
 		const childNode = childNodes[i];
@@ -151,7 +151,9 @@ export function xmlDecode(xml: string) {
  * @param element XML element.
  * @returns XML element list.
  */
-export function xmlElementChildElements<T extends IElement>(element: T): T[] {
+export function xmlElementChildElements<
+	T extends Readonly<IElement>
+>(element: T): T[] {
 	const {childNodes} = element;
 	const r = [];
 	for (let i = 0, l = childNodes.length; i < l; i++) {
@@ -175,7 +177,7 @@ export function xmlElementChildElements<T extends IElement>(element: T): T[] {
  * @param element XML element.
  * @returns XML text node list.
  */
-export function xmlElementText(element: IElement) {
+export function xmlElementText(element: Readonly<IElement>) {
 	const {childNodes} = element;
 	let r: IText | null = null;
 	for (let i = 0, l = childNodes.length; i < l; i++) {

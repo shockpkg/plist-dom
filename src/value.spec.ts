@@ -15,11 +15,14 @@ class ValueA extends Value {
 		super();
 	}
 
-	public fromXmlElement(element: IElement): void {
+	public fromXmlElement(element: Readonly<IElement>): void {
 		throw new Error('Not implemented.');
 	}
 
-	protected _toXml(optioned: IToXmlOptioned, depth: number): string {
+	protected _toXml(
+		optioned: Readonly<IToXmlOptioned>,
+		depth: number
+	): string {
 		throw new Error('Not implemented.');
 	}
 }
@@ -31,11 +34,14 @@ class ValueB extends Value {
 		super();
 	}
 
-	public fromXmlElement(element: IElement): void {
+	public fromXmlElement(element: Readonly<IElement>): void {
 		throw new Error('Not implemented.');
 	}
 
-	protected _toXml(optioned: IToXmlOptioned, depth: number): string {
+	protected _toXml(
+		optioned: Readonly<IToXmlOptioned>,
+		depth: number
+	): string {
 		throw new Error('Not implemented.');
 	}
 }

@@ -185,7 +185,7 @@ export class ValueArray extends Value {
 	 *
 	 * @param element XML element.
 	 */
-	public fromXmlElement(element: IElement) {
+	public fromXmlElement(element: Readonly<IElement>) {
 		this._assertXmlTagname(element, 'array');
 		const children = xmlElementChildElements(element);
 		this.value = children.map(el => this.childFromXmlElement(el));
@@ -197,7 +197,7 @@ export class ValueArray extends Value {
 	 * @param element XML element.
 	 * @returns Value element.
 	 */
-	public childFromXmlElement(element: IElement) {
+	public childFromXmlElement(element: Readonly<IElement>) {
 		const type = element.tagName;
 		const Value = this.childTagNames.get(type) || null;
 		if (!Value) {

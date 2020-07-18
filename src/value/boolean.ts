@@ -38,7 +38,7 @@ export class ValueBoolean extends Value {
 	 *
 	 * @param element XML element.
 	 */
-	public fromXmlElement(element: IElement) {
+	public fromXmlElement(element: Readonly<IElement>) {
 		this._assertNoXmlElementChildNodes(element);
 		const {tagName} = element;
 		if (tagName === 'true') {

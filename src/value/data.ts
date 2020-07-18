@@ -39,7 +39,7 @@ export class ValueData extends Value {
 	 *
 	 * @param element XML element.
 	 */
-	public fromXmlElement(element: IElement) {
+	public fromXmlElement(element: Readonly<IElement>) {
 		this._assertXmlTagname(element, 'data');
 		const b64 = this._getXmlElementText(element) || '';
 		if (!/^[0-9a-z+/\s]*[\s=]*[\s=]*$/i.test(b64)) {

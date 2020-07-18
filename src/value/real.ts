@@ -41,7 +41,7 @@ export class ValueReal extends Value {
 	 *
 	 * @param element XML element.
 	 */
-	public fromXmlElement(element: IElement) {
+	public fromXmlElement(element: Readonly<IElement>) {
 		this._assertXmlTagname(element, 'real');
 		this.value = decodeIntBase10(this._getXmlElementText(element) || '');
 	}
