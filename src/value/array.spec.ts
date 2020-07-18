@@ -6,7 +6,7 @@ import {
 	ValueArray
 } from './array';
 
-describe('values/array', () => {
+describe('value/array', () => {
 	describe('ValueArray', () => {
 		describe('constructor', () => {
 			it('length: 0', () => {

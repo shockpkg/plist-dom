@@ -6,7 +6,7 @@ import {
 	ValueDict
 } from './dict';
 
-describe('values/dict', () => {
+describe('value/dict', () => {
 	describe('ValueDict', () => {
 		describe('constructor', () => {
 			it('length: 0', () => {

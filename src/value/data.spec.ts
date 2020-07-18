@@ -2,7 +2,7 @@ import {
 	ValueData
 } from './data';
 
-describe('values/data', () => {
+describe('value/data', () => {
 	describe('ValueData', () => {
 		describe('constructor', () => {
 			it('length: 0', () => {

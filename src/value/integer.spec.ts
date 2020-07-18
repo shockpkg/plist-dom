@@ -2,7 +2,7 @@ import {
 	ValueInteger
 } from './integer';
 
-describe('values/integer', () => {
+describe('value/integer', () => {
 	describe('ValueInteger', () => {
 		describe('constructor', () => {
 			it('42', () => {

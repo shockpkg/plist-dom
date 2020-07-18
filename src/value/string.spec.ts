@@ -2,7 +2,7 @@ import {
 	ValueString
 } from './string';
 
-describe('values/string', () => {
+describe('value/string', () => {
 	describe('ValueString', () => {
 		describe('constructor', () => {
 			it('hello world', () => {

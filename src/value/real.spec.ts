@@ -2,7 +2,7 @@ import {
 	ValueReal
 } from './real';
 
-describe('values/real', () => {
+describe('value/real', () => {
 	describe('ValueReal', () => {
 		describe('constructor', () => {
 			it('42', () => {

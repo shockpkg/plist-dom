@@ -3,10 +3,10 @@ import {
 } from './plist';
 import {
 	ValueBoolean
-} from './values/boolean';
+} from './value/boolean';
 import {
 	ValueString
-} from './values/string';
+} from './value/string';
 
 /**
  * Extract plist body XML.

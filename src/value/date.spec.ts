@@ -2,7 +2,7 @@ import {
 	ValueDate
 } from './date';
 
-describe('values/integer', () => {
+describe('value/integer', () => {
 	describe('ValueDate', () => {
 		describe('constructor', () => {
 			it('date', () => {

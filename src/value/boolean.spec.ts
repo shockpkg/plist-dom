@@ -2,7 +2,7 @@ import {
 	ValueBoolean
 } from './boolean';
 
-describe('values/boolean', () => {
+describe('value/boolean', () => {
 	describe('ValueBoolean', () => {
 		describe('constructor', () => {
 			it('false', () => {
