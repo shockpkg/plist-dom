@@ -29,8 +29,7 @@
 
 		"types": [
 			"node",
-			"jasmine",
-			"entities"
+			"jasmine"
 		],
 		"outDir": "lib"
 	},
