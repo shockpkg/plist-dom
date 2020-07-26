@@ -5,7 +5,7 @@ Package for parsing and encoding a plist document
 [![npm](https://img.shields.io/npm/v/@shockpkg/plist-dom.svg)](https://npmjs.com/package/@shockpkg/plist-dom)
 [![node](https://img.shields.io/node/v/@shockpkg/plist-dom.svg)](https://nodejs.org)
 
-[![dependencies](https://david-dm.org/shockpkg/plist-dom.svg)](https://david-dm.org/shockpkg/plist-dom)
+[![dependencies](https://img.shields.io/david/shockpkg/plist-dom.svg)](https://david-dm.org/shockpkg/plist-dom)
 [![size](https://packagephobia.now.sh/badge?p=@shockpkg/plist-dom)](https://packagephobia.now.sh/result?p=@shockpkg/plist-dom)
 [![downloads](https://img.shields.io/npm/dm/@shockpkg/plist-dom.svg)](https://npmcharts.com/compare/@shockpkg/plist-dom?minimal=true)
 
