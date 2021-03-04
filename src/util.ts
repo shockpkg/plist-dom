@@ -224,7 +224,7 @@ export function stringChunk(str: string, len: number) {
  */
 export function decodeIntBase10(str: string) {
 	const v = +str;
-	if (!/^[0-9]+$/.test(str) || !Number.isInteger(v)) {
+	if (!/^[-+]?[0-9]+$/.test(str) || !Number.isInteger(v)) {
 		throw new Error(`Invalid integer data: ${str}`);
 	}
 	return v;

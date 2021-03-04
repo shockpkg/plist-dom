@@ -1,6 +1,7 @@
 import {
 	stringChunk,
-	xmlDecode
+	xmlDecode,
+	decodeIntBase10
 } from './util';
 
 describe('util', () => {
@@ -48,6 +49,24 @@ describe('util', () => {
 			expect(o.declaration).toBeNull();
 			expect(o.doctype).toBeNull();
 			expect(o.documentElement.toString()).toBe('<xml>a</xml>');
+		});
+	});
+
+	describe('decodeIntBase10', () => {
+		it('0', () => {
+			expect(decodeIntBase10('0')).toBe(0);
+		});
+
+		it('+42', () => {
+			expect(decodeIntBase10('+42')).toBe(42);
+		});
+
+		it('42', () => {
+			expect(decodeIntBase10('42')).toBe(42);
+		});
+
+		it('-42', () => {
+			expect(decodeIntBase10('-42')).toBe(-42);
 		});
 	});
 });
