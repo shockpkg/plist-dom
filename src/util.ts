@@ -8,6 +8,8 @@ const encodeXML = entities.encodeXML || (entities as any).default.encodeXML;
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const {DOMParser} = xmldom;
 
+const numberLimit = 0x1fffffffffffff;
+
 export interface IText {
 	nodeValue: string | null;
 }
@@ -239,7 +241,8 @@ export function decodeIntBase10(str: string) {
 	if (!/^[-+]?[0-9]+$/.test(str)) {
 		throw new Error(`Invalid integer data: ${str}`);
 	}
-	return +str;
+	const num = +str;
+	return (num > numberLimit || num < -numberLimit) ? BigInt(str) : num;
 }
 
 /**
@@ -247,8 +250,8 @@ export function decodeIntBase10(str: string) {
  *
  * @param value Number value.
  */
-export function assertInteger(value: number) {
-	if (!Number.isInteger(value)) {
+export function assertInteger(value: number | BigInt) {
+	if (typeof value === 'number' && !Number.isInteger(value)) {
 		throw new Error(`Value not an integer: ${value}`);
 	}
 }

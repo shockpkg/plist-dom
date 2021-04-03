@@ -27,9 +27,9 @@ export class ValueInteger extends Value {
 	/**
 	 * Value value.
 	 */
-	public value = 0;
+	public value: number | BigInt = 0;
 
-	constructor(value = 0) {
+	constructor(value: number | BigInt = 0) {
 		super();
 
 		assertInteger(value);
