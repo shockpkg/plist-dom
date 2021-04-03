@@ -224,7 +224,7 @@ export function stringChunk(str: string, len: number) {
  */
 export function decodeReal(str: string) {
 	if (!/^[-+]?([0-9]+|[0-9]*\.[0-9]+)$/.test(str)) {
-		throw new Error(`Invalid integer data: ${str}`);
+		throw new Error(`Invalid real data: ${str}`);
 	}
 	return +str;
 }
