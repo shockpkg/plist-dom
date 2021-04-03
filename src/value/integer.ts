@@ -37,6 +37,24 @@ export class ValueInteger extends Value {
 	}
 
 	/**
+	 * Get value as BigInt.
+	 *
+	 * @returns Value as a BigInt.
+	 */
+	public asBigInt() {
+		return BigInt(this.value);
+	}
+
+	/**
+	 * Get value as Number, possibly losing some precision.
+	 *
+	 * @returns Value as a Number.
+	 */
+	public asNumber() {
+		return Number(this.value);
+	}
+
+	/**
 	 * Decode value from element.
 	 *
 	 * @param element XML element.
