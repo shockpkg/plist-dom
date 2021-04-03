@@ -11,7 +11,8 @@ describe('value/real', () => {
 			});
 
 			it('3.14', () => {
-				expect(() => new ValueReal(3.14)).toThrow();
+				const el = new ValueReal(3.14);
+				expect(el.value).toBe(3.14);
 			});
 		});
 
@@ -25,7 +26,7 @@ describe('value/real', () => {
 			it('3.14', () => {
 				const el = new ValueReal();
 				el.value = 3.14;
-				expect(() => el.toXml()).toThrow();
+				expect(el.toXml()).toBe('<real>3.14</real>');
 			});
 		});
 
@@ -36,11 +37,40 @@ describe('value/real', () => {
 				expect(el.value).toBe(42);
 			});
 
+			it('42.0', () => {
+				const el = new ValueReal();
+				el.fromXml('<real>42.0</real>');
+				expect(el.value).toBe(42);
+			});
+
 			it('3.14', () => {
 				const el = new ValueReal();
-				expect(() => {
-					el.fromXml('<real>3.14</real>');
-				}).toThrow();
+				el.fromXml('<real>3.14</real>');
+				expect(el.value).toBe(3.14);
+			});
+
+			it('.14', () => {
+				const el = new ValueReal();
+				el.fromXml('<real>3.14</real>');
+				expect(el.value).toBe(3.14);
+			});
+
+			it('0.14', () => {
+				const el = new ValueReal();
+				el.fromXml('<real>0.14</real>');
+				expect(el.value).toBe(0.14);
+			});
+
+			it('-.14', () => {
+				const el = new ValueReal();
+				el.fromXml('<real>-.14</real>');
+				expect(el.value).toBe(-0.14);
+			});
+
+			it('+.14', () => {
+				const el = new ValueReal();
+				el.fromXml('<real>+.14</real>');
+				expect(el.value).toBe(0.14);
 			});
 
 			it('empty', () => {
@@ -53,10 +83,13 @@ describe('value/real', () => {
 				}).toThrow();
 			});
 
-			it('datadata', () => {
+			it('baddata', () => {
 				const el = new ValueReal();
 				expect(() => {
 					el.fromXml('<real>baddata</real>');
+				}).toThrow();
+				expect(() => {
+					el.fromXml('<real>1.</real>');
 				}).toThrow();
 			});
 

@@ -53,7 +53,7 @@ describe('value/integer', () => {
 				}).toThrow();
 			});
 
-			it('datadata', () => {
+			it('baddata', () => {
 				const el = new ValueInteger();
 				expect(() => {
 					el.fromXml('<real>baddata</real>');

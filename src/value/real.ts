@@ -3,8 +3,7 @@ import {
 } from '../options';
 import {
 	IElement,
-	assertInteger,
-	decodeIntBase10
+	decodeReal
 } from '../util';
 import {
 	Value
@@ -32,7 +31,6 @@ export class ValueReal extends Value {
 	constructor(value = 0) {
 		super();
 
-		assertInteger(value);
 		this.value = value;
 	}
 
@@ -43,7 +41,7 @@ export class ValueReal extends Value {
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
 		this._assertXmlTagname(element, 'real');
-		this.value = decodeIntBase10(this._getXmlElementText(element) || '');
+		this.value = decodeReal(this._getXmlElementText(element) || '');
 	}
 
 	/**
@@ -56,7 +54,6 @@ export class ValueReal extends Value {
 	protected _toXml(optioned: Readonly<IToXmlOptioned>, depth: number) {
 		const p = optioned.indentString.repeat(depth);
 		const v = this.value;
-		assertInteger(v);
 		return `${p}<real>${v}</real>`;
 	}
 }
