@@ -236,11 +236,10 @@ export function decodeReal(str: string) {
  * @returns Decoded integer.
  */
 export function decodeIntBase10(str: string) {
-	const v = +str;
-	if (!/^[-+]?[0-9]+$/.test(str) || !Number.isInteger(v)) {
+	if (!/^[-+]?[0-9]+$/.test(str)) {
 		throw new Error(`Invalid integer data: ${str}`);
 	}
-	return v;
+	return +str;
 }
 
 /**
