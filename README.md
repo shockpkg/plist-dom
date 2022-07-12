@@ -1,4 +1,4 @@
-# plist-dom
+# Plist DOM
 
 Package for parsing and encoding a plist document
 
