@@ -1,25 +1,14 @@
-import {
-	IToXmlOptioned,
-	IToXmlOptions,
-	toXmlOptionsOptioned
-} from './options';
-import {
-	IElement,
-	xmlDecode,
-	xmlElementChildElements
-} from './util';
-import {
-	Value
-} from './value';
-import {
-	ValueArray
-} from './value/array';
+import {IToXmlOptioned, IToXmlOptions, toXmlOptionsOptioned} from './options';
+import {IElement, xmlDecode, xmlElementChildElements} from './util';
+import {Value} from './value';
+import {ValueArray} from './value/array';
 
 const xmlDeclaration = '<?xml version="1.0" encoding="UTF-8"?>';
-const xmlDoctype = '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">';
+const xmlDoctype =
+	'<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">';
 
 /**
- * Plist constructor.
+ * Plist object.
  */
 export class Plist extends Object {
 	/**
@@ -47,6 +36,11 @@ export class Plist extends Object {
 	 */
 	public value: Value | null = null;
 
+	/**
+	 * Plist constructor.
+	 *
+	 * @param value The value.
+	 */
 	constructor(value: Value | null = null) {
 		super();
 
@@ -107,11 +101,7 @@ export class Plist extends Object {
 	 * @param xml XML string.
 	 */
 	public fromXml(xml: string) {
-		const {
-			declaration,
-			doctype,
-			documentElement
-		} = xmlDecode(xml);
+		const {declaration, doctype, documentElement} = xmlDecode(xml);
 		this.fromXmlElement(documentElement, declaration, doctype);
 	}
 
@@ -138,8 +128,9 @@ export class Plist extends Object {
 			throw new Error(`Multiple root plist child tag: ${childElementsL}`);
 		}
 
-		this.value = childElementsL ?
-			this.childFromXmlElement(childElements[0]) : null;
+		this.value = childElementsL
+			? this.childFromXmlElement(childElements[0])
+			: null;
 		this.xmlDeclaration = declaration || '';
 		this.xmlDoctype = doctype || '';
 	}

@@ -1,9 +1,7 @@
-import {
-	defaultValue
-} from './util';
+import {defaultValue} from './util';
 
 export interface IToXmlOptions {
-
+	//
 	/**
 	 * Indent string.
 	 *
@@ -34,7 +32,7 @@ export interface IToXmlOptions {
 }
 
 export interface IToXmlOptioned {
-
+	//
 	/**
 	 * Indent string.
 	 *

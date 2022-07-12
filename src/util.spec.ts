@@ -1,8 +1,4 @@
-import {
-	stringChunk,
-	xmlDecode,
-	decodeIntBase10
-} from './util';
+import {stringChunk, xmlDecode, decodeIntBase10} from './util';
 
 describe('util', () => {
 	describe('stringChunk', () => {
@@ -21,7 +17,8 @@ describe('util', () => {
 
 	describe('xmlDecode', () => {
 		const declaration = '<?xml version="1.0" encoding="UTF-8"?>';
-		const doctype = '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">';
+		const doctype =
+			'<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">';
 
 		it('declaration', () => {
 			const o = xmlDecode(`\n${declaration}\n<xml>a</xml>\n`);

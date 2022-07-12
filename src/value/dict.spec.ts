@@ -1,10 +1,7 @@
-import {
-	Value
-} from '../value';
+/* eslint-disable max-nested-callbacks */
+import {Value} from '../value';
 
-import {
-	ValueDict
-} from './dict';
+import {ValueDict} from './dict';
 
 describe('value/dict', () => {
 	describe('ValueDict', () => {
@@ -42,18 +39,22 @@ describe('value/dict', () => {
 				const m = new Map<string, Value>();
 				m.set('<&>', new ValueDict());
 				const el = new ValueDict(m);
-				expect(el.toXml()).toBe([
-					'<dict>',
-					'\t<key>&lt;&amp;&gt;</key>',
-					'\t<dict/>',
-					'</dict>'
-				].join('\n'));
-				expect(el.toXml(null, 1)).toBe([
-					'\t<dict>',
-					'\t\t<key>&lt;&amp;&gt;</key>',
-					'\t\t<dict/>',
-					'\t</dict>'
-				].join('\n'));
+				expect(el.toXml()).toBe(
+					[
+						'<dict>',
+						'\t<key>&lt;&amp;&gt;</key>',
+						'\t<dict/>',
+						'</dict>'
+					].join('\n')
+				);
+				expect(el.toXml(null, 1)).toBe(
+					[
+						'\t<dict>',
+						'\t\t<key>&lt;&amp;&gt;</key>',
+						'\t\t<dict/>',
+						'\t</dict>'
+					].join('\n')
+				);
 			});
 
 			it('length: 2', () => {
@@ -61,22 +62,26 @@ describe('value/dict', () => {
 				m.set('something', new ValueDict());
 				m.set('<&>', new ValueDict());
 				const el = new ValueDict(m);
-				expect(el.toXml()).toBe([
-					'<dict>',
-					'\t<key>something</key>',
-					'\t<dict/>',
-					'\t<key>&lt;&amp;&gt;</key>',
-					'\t<dict/>',
-					'</dict>'
-				].join('\n'));
-				expect(el.toXml(null, 1)).toBe([
-					'\t<dict>',
-					'\t\t<key>something</key>',
-					'\t\t<dict/>',
-					'\t\t<key>&lt;&amp;&gt;</key>',
-					'\t\t<dict/>',
-					'\t</dict>'
-				].join('\n'));
+				expect(el.toXml()).toBe(
+					[
+						'<dict>',
+						'\t<key>something</key>',
+						'\t<dict/>',
+						'\t<key>&lt;&amp;&gt;</key>',
+						'\t<dict/>',
+						'</dict>'
+					].join('\n')
+				);
+				expect(el.toXml(null, 1)).toBe(
+					[
+						'\t<dict>',
+						'\t\t<key>something</key>',
+						'\t\t<dict/>',
+						'\t\t<key>&lt;&amp;&gt;</key>',
+						'\t\t<dict/>',
+						'\t</dict>'
+					].join('\n')
+				);
 			});
 		});
 
@@ -89,26 +94,30 @@ describe('value/dict', () => {
 
 			it('size: 1', () => {
 				const el = new ValueDict();
-				el.fromXml([
-					'<dict>',
-					'<key>&lt;&amp;&gt;</key>',
-					'<true/>',
-					'</dict>'
-				].join('\n'));
+				el.fromXml(
+					[
+						'<dict>',
+						'<key>&lt;&amp;&gt;</key>',
+						'<true/>',
+						'</dict>'
+					].join('\n')
+				);
 				expect(el.value.size).toBe(1);
 				expect(el.value.get('<&>')).toBeTruthy();
 			});
 
 			it('size: 2', () => {
 				const el = new ValueDict();
-				el.fromXml([
-					'<dict>',
-					'<key>test</key>',
-					'<true/>',
-					'<key>&lt;&amp;&gt;</key>',
-					'<true/>',
-					'</dict>'
-				].join('\n'));
+				el.fromXml(
+					[
+						'<dict>',
+						'<key>test</key>',
+						'<true/>',
+						'<key>&lt;&amp;&gt;</key>',
+						'<true/>',
+						'</dict>'
+					].join('\n')
+				);
 				expect(el.value.size).toBe(2);
 				expect(el.value.get('test')).toBeTruthy();
 				expect(el.value.get('<&>')).toBeTruthy();

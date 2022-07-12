@@ -1,10 +1,7 @@
-import {
-	Value
-} from '../value';
+/* eslint-disable max-nested-callbacks */
+import {Value} from '../value';
 
-import {
-	ValueArray
-} from './array';
+import {ValueArray} from './array';
 
 describe('value/array', () => {
 	describe('ValueArray', () => {
@@ -16,18 +13,13 @@ describe('value/array', () => {
 			});
 
 			it('length: 1', () => {
-				const a: Value[] = [
-					new ValueArray()
-				];
+				const a: Value[] = [new ValueArray()];
 				const el = new ValueArray(a);
 				expect(el.value).toBe(a);
 			});
 
 			it('length: 2', () => {
-				const a: Value[] = [
-					new ValueArray(),
-					new ValueArray()
-				];
+				const a: Value[] = [new ValueArray(), new ValueArray()];
 				const el = new ValueArray(a);
 				expect(el.value).toBe(a);
 			});
@@ -41,46 +33,36 @@ describe('value/array', () => {
 			});
 
 			it('length: 1', () => {
-				const el = new ValueArray([
-					new ValueArray()
-				]);
-				expect(el.toXml()).toBe([
-					'<array>',
-					'\t<array/>',
-					'</array>'
-				].join('\n'));
-				expect(el.toXml(null, 1)).toBe([
-					'\t<array>',
-					'\t\t<array/>',
-					'\t</array>'
-				].join('\n'));
+				const el = new ValueArray([new ValueArray()]);
+				expect(el.toXml()).toBe(
+					['<array>', '\t<array/>', '</array>'].join('\n')
+				);
+				expect(el.toXml(null, 1)).toBe(
+					['\t<array>', '\t\t<array/>', '\t</array>'].join('\n')
+				);
 			});
 
 			it('length: 2', () => {
-				const el = new ValueArray([
-					new ValueArray(),
-					new ValueArray()
-				]);
-				expect(el.toXml()).toBe([
-					'<array>',
-					'\t<array/>',
-					'\t<array/>',
-					'</array>'
-				].join('\n'));
-				expect(el.toXml(null, 1)).toBe([
-					'\t<array>',
-					'\t\t<array/>',
-					'\t\t<array/>',
-					'\t</array>'
-				].join('\n'));
+				const el = new ValueArray([new ValueArray(), new ValueArray()]);
+				expect(el.toXml()).toBe(
+					['<array>', '\t<array/>', '\t<array/>', '</array>'].join(
+						'\n'
+					)
+				);
+				expect(el.toXml(null, 1)).toBe(
+					[
+						'\t<array>',
+						'\t\t<array/>',
+						'\t\t<array/>',
+						'\t</array>'
+					].join('\n')
+				);
 			});
 		});
 
 		describe('fromXml', () => {
 			it('length: 0', () => {
-				const el = new ValueArray([
-					new ValueArray()
-				]);
+				const el = new ValueArray([new ValueArray()]);
 				el.fromXml('<array></array>');
 				expect(el.value.length).toBe(0);
 			});

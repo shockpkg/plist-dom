@@ -1,6 +1,5 @@
-import {
-	ValueBoolean
-} from './boolean';
+/* eslint-disable max-nested-callbacks */
+import {ValueBoolean} from './boolean';
 
 describe('value/boolean', () => {
 	describe('ValueBoolean', () => {

@@ -10,11 +10,9 @@ Package for parsing and encoding a plist document
 
 [![Build Status](https://github.com/shockpkg/plist-dom/workflows/main/badge.svg?branch=master)](https://github.com/shockpkg/plist-dom/actions?query=workflow%3Amain+branch%3Amaster)
 
-
 # Overview
 
 Parses and encodes Plist XML documents between a DOM and XML data.
-
 
 # Usage
 
@@ -29,11 +27,9 @@ console.log(plist);
 console.log(plist.toXml());
 ```
 
-
 # Bugs
 
 If you find a bug or have compatibility issues, please open a ticket under issues section for this repository.
-
 
 # License
 

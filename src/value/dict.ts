@@ -1,14 +1,6 @@
-import {
-	IToXmlOptioned
-} from '../options';
-import {
-	IElement,
-	xmlElementChildElements,
-	xmlEntitiesEncode
-} from '../util';
-import {
-	Value
-} from '../value';
+import {IToXmlOptioned} from '../options';
+import {IElement, xmlElementChildElements, xmlEntitiesEncode} from '../util';
+import {Value} from '../value';
 
 import {ValueArray} from './array';
 import {ValueBoolean} from './boolean';
@@ -18,7 +10,13 @@ import {ValueInteger} from './integer';
 import {ValueReal} from './real';
 import {ValueString} from './string';
 
-let getChildTagNamesCache: any = null;
+let getChildTagNamesCache: Map<string, new () => Value> | null = null;
+
+/**
+ * Get child tag names.
+ *
+ * @returns The map.
+ */
 const getChildTagNames = () => {
 	if (!getChildTagNamesCache) {
 		getChildTagNamesCache = new Map();
@@ -38,11 +36,11 @@ const getChildTagNames = () => {
 			}
 		}
 	}
-	return getChildTagNamesCache as Map<string, new() => Value>;
+	return getChildTagNamesCache;
 };
 
 /**
- * ValueDict constructor.
+ * ValueDict object.
  */
 export class ValueDict extends Value {
 	/**
@@ -78,6 +76,11 @@ export class ValueDict extends Value {
 	 */
 	public value = new Map<string, Value>();
 
+	/**
+	 * ValueDict constructor.
+	 *
+	 * @param value The value.
+	 */
 	constructor(value = new Map<string, Value>()) {
 		super();
 
@@ -165,7 +168,7 @@ export class ValueDict extends Value {
 		if (l % 2) {
 			throw new Error(`Uneven number of child elements: ${l}`);
 		}
-		const v = new Map();
+		const v: Map<string, Value> = new Map();
 		for (let i = 0; i < l; i += 2) {
 			const eK = children[i];
 			const eV = children[i + 1];

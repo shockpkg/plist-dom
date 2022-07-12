@@ -1,15 +1,9 @@
-import {
-	IToXmlOptioned
-} from '../options';
-import {
-	IElement
-} from '../util';
-import {
-	Value
-} from '../value';
+import {IToXmlOptioned} from '../options';
+import {IElement} from '../util';
+import {Value} from '../value';
 
 /**
- * ValueBoolean constructor.
+ * ValueBoolean object.
  */
 export class ValueBoolean extends Value {
 	/**
@@ -27,6 +21,11 @@ export class ValueBoolean extends Value {
 	 */
 	public value = false;
 
+	/**
+	 * ValueBoolean constructor.
+	 *
+	 * @param value The value.
+	 */
 	constructor(value = false) {
 		super();
 

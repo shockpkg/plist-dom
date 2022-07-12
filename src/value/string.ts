@@ -1,16 +1,9 @@
-import {
-	IToXmlOptioned
-} from '../options';
-import {
-	IElement,
-	xmlEntitiesEncode
-} from '../util';
-import {
-	Value
-} from '../value';
+import {IToXmlOptioned} from '../options';
+import {IElement, xmlEntitiesEncode} from '../util';
+import {Value} from '../value';
 
 /**
- * ValueString constructor.
+ * ValueString object.
  */
 export class ValueString extends Value {
 	/**
@@ -28,6 +21,11 @@ export class ValueString extends Value {
 	 */
 	public value = '';
 
+	/**
+	 * ValueString constructor.
+	 *
+	 * @param value The value.
+	 */
 	constructor(value = '') {
 		super();
 

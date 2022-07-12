@@ -1,6 +1,5 @@
-import {
-	ValueInteger
-} from './integer';
+/* eslint-disable max-nested-callbacks */
+import {ValueInteger} from './integer';
 
 const small = '9007199254740991';
 const smallPos = `+${small}`;
@@ -74,17 +73,13 @@ describe('value/integer', () => {
 			it(small, () => {
 				const el = new ValueInteger(+small);
 				expect(el.toXml()).toBe(`<integer>${small}</integer>`);
-				expect(el.toXml(null, 1)).toBe(
-					`\t<integer>${small}</integer>`
-				);
+				expect(el.toXml(null, 1)).toBe(`\t<integer>${small}</integer>`);
 			});
 
 			it(smallPos, () => {
 				const el = new ValueInteger(+smallPos);
 				expect(el.toXml()).toBe(`<integer>${small}</integer>`);
-				expect(el.toXml(null, 1)).toBe(
-					`\t<integer>${small}</integer>`
-				);
+				expect(el.toXml(null, 1)).toBe(`\t<integer>${small}</integer>`);
 			});
 
 			it(smallNeg, () => {
@@ -102,17 +97,13 @@ describe('value/integer', () => {
 			it(big, () => {
 				const el = new ValueInteger(BigInt(big));
 				expect(el.toXml()).toBe(`<integer>${big}</integer>`);
-				expect(el.toXml(null, 1)).toBe(
-					`\t<integer>${big}</integer>`
-				);
+				expect(el.toXml(null, 1)).toBe(`\t<integer>${big}</integer>`);
 			});
 
 			it(bigPos, () => {
 				const el = new ValueInteger(BigInt(bigPos));
 				expect(el.toXml()).toBe(`<integer>${big}</integer>`);
-				expect(el.toXml(null, 1)).toBe(
-					`\t<integer>${big}</integer>`
-				);
+				expect(el.toXml(null, 1)).toBe(`\t<integer>${big}</integer>`);
 			});
 
 			it(bigNeg, () => {

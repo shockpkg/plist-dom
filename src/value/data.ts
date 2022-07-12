@@ -1,16 +1,9 @@
-import {
-	IToXmlOptioned
-} from '../options';
-import {
-	IElement,
-	stringChunk
-} from '../util';
-import {
-	Value
-} from '../value';
+import {IToXmlOptioned} from '../options';
+import {IElement, stringChunk} from '../util';
+import {Value} from '../value';
 
 /**
- * ValueData constructor.
+ * ValueData object.
  */
 export class ValueData extends Value {
 	/**
@@ -28,6 +21,11 @@ export class ValueData extends Value {
 	 */
 	public value = Buffer.alloc(0);
 
+	/**
+	 * ValueData constructor.
+	 *
+	 * @param value The value.
+	 */
 	constructor(value = Buffer.alloc(0)) {
 		super();
 

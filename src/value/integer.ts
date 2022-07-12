@@ -1,17 +1,9 @@
-import {
-	IToXmlOptioned
-} from '../options';
-import {
-	IElement,
-	assertInteger,
-	decodeIntBase10
-} from '../util';
-import {
-	Value
-} from '../value';
+import {IToXmlOptioned} from '../options';
+import {IElement, assertInteger, decodeIntBase10} from '../util';
+import {Value} from '../value';
 
 /**
- * ValueInteger constructor.
+ * ValueInteger object.
  */
 export class ValueInteger extends Value {
 	/**
@@ -29,6 +21,11 @@ export class ValueInteger extends Value {
 	 */
 	public value: number | bigint = 0;
 
+	/**
+	 * ValueInteger constructor.
+	 *
+	 * @param value The value.
+	 */
 	constructor(value: number | bigint = 0) {
 		super();
 

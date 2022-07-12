@@ -1,15 +1,9 @@
-import {
-	IToXmlOptioned
-} from '../options';
-import {
-	IElement
-} from '../util';
-import {
-	Value
-} from '../value';
+import {IToXmlOptioned} from '../options';
+import {IElement} from '../util';
+import {Value} from '../value';
 
 /**
- * ValueDate constructor.
+ * ValueDate object.
  */
 export class ValueDate extends Value {
 	/**
@@ -27,6 +21,11 @@ export class ValueDate extends Value {
 	 */
 	public value = new Date();
 
+	/**
+	 * ValueDate constructor.
+	 *
+	 * @param value The value.
+	 */
 	constructor(value = new Date()) {
 		super();
 

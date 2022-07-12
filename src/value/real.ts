@@ -1,16 +1,9 @@
-import {
-	IToXmlOptioned
-} from '../options';
-import {
-	IElement,
-	decodeReal
-} from '../util';
-import {
-	Value
-} from '../value';
+import {IToXmlOptioned} from '../options';
+import {IElement, decodeReal} from '../util';
+import {Value} from '../value';
 
 /**
- * ValueReal constructor.
+ * ValueReal object.
  */
 export class ValueReal extends Value {
 	/**
@@ -28,6 +21,11 @@ export class ValueReal extends Value {
 	 */
 	public value = 0;
 
+	/**
+	 * ValueReal constructor.
+	 *
+	 * @param value The value.
+	 */
 	constructor(value = 0) {
 		super();
 

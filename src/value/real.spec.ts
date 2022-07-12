@@ -1,6 +1,5 @@
-import {
-	ValueReal
-} from './real';
+/* eslint-disable max-nested-callbacks */
+import {ValueReal} from './real';
 
 describe('value/real', () => {
 	describe('ValueReal', () => {

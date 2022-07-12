@@ -1,12 +1,8 @@
-import {
-	IToXmlOptioned
-} from './options';
-import {
-	IElement
-} from './util';
-import {
-	Value
-} from './value';
+/* eslint-disable max-nested-callbacks */
+/* eslint-disable max-classes-per-file */
+import {IToXmlOptioned} from './options';
+import {IElement} from './util';
+import {Value} from './value';
 
 class ValueA extends Value {
 	public static readonly TYPE = 'ValueA';

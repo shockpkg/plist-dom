@@ -1,16 +1,8 @@
-import {
-	IToXmlOptioned,
-	IToXmlOptions,
-	toXmlOptionsOptioned
-} from './options';
-import {
-	IElement,
-	xmlDecode,
-	xmlElementText
-} from './util';
+import {IToXmlOptioned, IToXmlOptions, toXmlOptionsOptioned} from './options';
+import {IElement, xmlDecode, xmlElementText} from './util';
 
 /**
- * Value constructor.
+ * Value object.
  */
 export abstract class Value extends Object {
 	/**
@@ -23,6 +15,9 @@ export abstract class Value extends Object {
 	 */
 	public static readonly TAG_NAMES: string[];
 
+	/**
+	 * Value constructor.
+	 */
 	constructor() {
 		super();
 	}

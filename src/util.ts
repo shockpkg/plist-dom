@@ -3,9 +3,11 @@ import * as entities from 'entities';
 import xmldom from 'xmldom';
 
 // Handle module loader differences between CJS and ESM.
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 const decodeXML = entities.decodeXML || (entities as any).default.decodeXML;
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 const encodeXML = entities.encodeXML || (entities as any).default.encodeXML;
-// eslint-disable-next-line @typescript-eslint/naming-convention
+// eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unsafe-assignment
 const {DOMParser} = xmldom;
 
 const numberLimit = 0x1fffffffffffff;
@@ -33,7 +35,7 @@ export function defaultValue<T, U>(
 	value: T,
 	defaultValue: U
 ): Exclude<T | U, undefined> {
-	// eslint-disable-next-line no-undefined
+	// eslint-disable-next-line no-undefined, @typescript-eslint/no-unsafe-return
 	return value === undefined ? defaultValue : (value as any);
 }
 
@@ -98,28 +100,49 @@ export function xmlDecode(xml: string) {
 	let doctype: string | null = null;
 
 	const errors: string[] = [];
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 	const parser = new DOMParser({
 		locator: {},
 		errorHandler: {
+			/**
+			 * Warning callback.
+			 *
+			 * @param e Error string.
+			 */
 			warning: (e: string) => {
 				// Ignore warnings.
 			},
+
+			/**
+			 * Error callback.
+			 *
+			 * @param e Error string.
+			 */
 			error: (e: string) => {
 				errors.push(e);
 			},
+
+			/**
+			 * Fatal error callback.
+			 *
+			 * @param e Error string.
+			 */
 			fatalError: (e: string) => {
 				errors.push(e);
 			}
 		}
 	});
-	const doc = parser.parseFromString(xml, 'text/xml');
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
+	const doc = parser.parseFromString(xml, 'text/xml') as {
+		documentElement: Readonly<IElement>;
+		childNodes: {}[];
+	};
 	if (errors.length) {
 		throw new Error(`XML decode error: ${errors[0]}`);
 	}
 
 	const {childNodes} = doc;
-	const documentElement =
-		(doc.documentElement as (Readonly<IElement> | null)) || null;
+	const documentElement = doc.documentElement || null;
 
 	for (let i = 0, l = childNodes.length; i < l; i++) {
 		const childNode = childNodes[i];
@@ -153,9 +176,9 @@ export function xmlDecode(xml: string) {
  * @param element XML element.
  * @returns XML element list.
  */
-export function xmlElementChildElements<
-	T extends Readonly<IElement>
->(element: T): T[] {
+export function xmlElementChildElements<T extends Readonly<IElement>>(
+	element: T
+): T[] {
 	const {childNodes} = element;
 	const r = [];
 	for (let i = 0, l = childNodes.length; i < l; i++) {
@@ -194,8 +217,7 @@ export function xmlElementText(element: Readonly<IElement>) {
 			'nodeValue' in childNode
 		) {
 			r = childNode as IText;
-		}
-		else {
+		} else {
 			throw new Error(`Unexpected child element: ${element.tagName}`);
 		}
 	}
@@ -211,9 +233,9 @@ export function xmlElementText(element: Readonly<IElement>) {
  */
 export function stringChunk(str: string, len: number) {
 	const r: string[] = [];
-	for (let s = str; s.length;) {
-		r.push(s.substr(0, len));
-		s = s.substr(len);
+	for (let s = str; s.length; ) {
+		r.push(s.substring(0, len));
+		s = s.substring(len);
 	}
 	return r;
 }
@@ -242,7 +264,7 @@ export function decodeIntBase10(str: string) {
 		throw new Error(`Invalid integer data: ${str}`);
 	}
 	const num = +str;
-	return (num > numberLimit || num < -numberLimit) ? BigInt(str) : num;
+	return num > numberLimit || num < -numberLimit ? BigInt(str) : num;
 }
 
 /**

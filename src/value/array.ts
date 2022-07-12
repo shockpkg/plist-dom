@@ -1,13 +1,6 @@
-import {
-	IToXmlOptioned
-} from '../options';
-import {
-	IElement,
-	xmlElementChildElements
-} from '../util';
-import {
-	Value
-} from '../value';
+import {IToXmlOptioned} from '../options';
+import {IElement, xmlElementChildElements} from '../util';
+import {Value} from '../value';
 
 import {ValueBoolean} from './boolean';
 import {ValueData} from './data';
@@ -17,7 +10,13 @@ import {ValueInteger} from './integer';
 import {ValueReal} from './real';
 import {ValueString} from './string';
 
-let getChildTagNamesCache: any = null;
+let getChildTagNamesCache: Map<string, new () => Value> | null = null;
+
+/**
+ * Get child tag names.
+ *
+ * @returns The map.
+ */
 const getChildTagNames = () => {
 	if (!getChildTagNamesCache) {
 		getChildTagNamesCache = new Map();
@@ -37,11 +36,11 @@ const getChildTagNames = () => {
 			}
 		}
 	}
-	return getChildTagNamesCache as Map<string, new() => Value>;
+	return getChildTagNamesCache;
 };
 
 /**
- * ValueArray constructor.
+ * ValueArray object.
  */
 export class ValueArray extends Value {
 	/**
@@ -77,6 +76,11 @@ export class ValueArray extends Value {
 	 */
 	public value: Value[] = [];
 
+	/**
+	 * ValueArray constructor.
+	 *
+	 * @param value The value.
+	 */
 	constructor(value: Value[] = []) {
 		super();
 

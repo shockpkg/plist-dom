@@ -1,6 +1,5 @@
-import {
-	ValueString
-} from './string';
+/* eslint-disable max-nested-callbacks */
+import {ValueString} from './string';
 
 describe('value/string', () => {
 	describe('ValueString', () => {
@@ -20,15 +19,17 @@ describe('value/string', () => {
 			it('hello world', () => {
 				const el = new ValueString('hello world');
 				expect(el.toXml()).toBe('<string>hello world</string>');
-				expect(el.toXml(null, 1))
-					.toBe('\t<string>hello world</string>');
+				expect(el.toXml(null, 1)).toBe(
+					'\t<string>hello world</string>'
+				);
 			});
 
 			it('<&>', () => {
 				const el = new ValueString('<&>');
 				expect(el.toXml()).toBe('<string>&lt;&amp;&gt;</string>');
-				expect(el.toXml(null, 1))
-					.toBe('\t<string>&lt;&amp;&gt;</string>');
+				expect(el.toXml(null, 1)).toBe(
+					'\t<string>&lt;&amp;&gt;</string>'
+				);
 			});
 		});
 

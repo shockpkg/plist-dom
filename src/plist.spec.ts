@@ -1,12 +1,7 @@
-import {
-	Plist
-} from './plist';
-import {
-	ValueBoolean
-} from './value/boolean';
-import {
-	ValueString
-} from './value/string';
+/* eslint-disable max-nested-callbacks */
+import {Plist} from './plist';
+import {ValueBoolean} from './value/boolean';
+import {ValueString} from './value/string';
 
 /**
  * Extract plist body XML.
@@ -82,22 +77,38 @@ describe('document', () => {
 		describe('toXml', () => {
 			it('null', () => {
 				const doc = new Plist();
-				expect(plistBodyExtract(doc.toXml({
-					indentRoot: false
-				}))).toBe('\n');
-				expect(plistBodyExtract(doc.toXml({
-					indentRoot: true
-				}))).toBe('\n');
+				expect(
+					plistBodyExtract(
+						doc.toXml({
+							indentRoot: false
+						})
+					)
+				).toBe('\n');
+				expect(
+					plistBodyExtract(
+						doc.toXml({
+							indentRoot: true
+						})
+					)
+				).toBe('\n');
 			});
 
 			it('true', () => {
 				const doc = new Plist(new ValueBoolean(true));
-				expect(plistBodyExtract(doc.toXml({
-					indentRoot: false
-				}))).toBe('\n<true/>\n');
-				expect(plistBodyExtract(doc.toXml({
-					indentRoot: true
-				}))).toBe('\n\t<true/>\n');
+				expect(
+					plistBodyExtract(
+						doc.toXml({
+							indentRoot: false
+						})
+					)
+				).toBe('\n<true/>\n');
+				expect(
+					plistBodyExtract(
+						doc.toXml({
+							indentRoot: true
+						})
+					)
+				).toBe('\n\t<true/>\n');
 			});
 
 			it('xmlDeclaration', () => {
@@ -153,8 +164,7 @@ describe('document', () => {
 				const {value} = doc;
 				expect(value).toBeTruthy();
 				if (value) {
-					expect(value.toXml())
-						.toBe((new ValueBoolean(false)).toXml());
+					expect(value.toXml()).toBe(new ValueBoolean(false).toXml());
 				}
 			});
 		});
