@@ -40,7 +40,7 @@ export class ValueData extends Value {
 	public fromXmlElement(element: Readonly<IElement>) {
 		this._assertXmlTagname(element, 'data');
 		const b64 = this._getXmlElementText(element) || '';
-		if (!/^[0-9a-z+/\s]*[\s=]*[\s=]*$/i.test(b64)) {
+		if (!/^[0-9a-z+/\s]*[=\s]*$/i.test(b64)) {
 			throw new Error(`Invalid base64 data: ${b64}`);
 		}
 		this.value = Buffer.from(b64, 'base64');
