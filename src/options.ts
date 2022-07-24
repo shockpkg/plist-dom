@@ -17,7 +17,7 @@ export interface IToXmlOptions {
 	newlineString?: string;
 
 	/**
-	 * Data columns.
+	 * Data columns, zero of negative for one row.
 	 *
 	 * @default 68
 	 */
@@ -31,36 +31,7 @@ export interface IToXmlOptions {
 	indentRoot?: boolean;
 }
 
-export interface IToXmlOptioned {
-	//
-	/**
-	 * Indent string.
-	 *
-	 * @default '\t'
-	 */
-	indentString: string;
-
-	/**
-	 * Newline string.
-	 *
-	 * @default '\n'
-	 */
-	newlineString: string;
-
-	/**
-	 * Data columns.
-	 *
-	 * @default 68
-	 */
-	dataColumns: number;
-
-	/**
-	 * Indent root element content.
-	 *
-	 * @default false
-	 */
-	indentRoot: boolean;
-}
+export type IToXmlOptioned = Required<IToXmlOptions>;
 
 /**
  * Convert IToXmlOptions to IToXmlOptioned with defaults.
