@@ -10,7 +10,7 @@ const xmlDoctype =
 /**
  * Plist object.
  */
-export class Plist extends Object {
+export class Plist {
 	/**
 	 * Default XML declaration.
 	 */
@@ -42,8 +42,6 @@ export class Plist extends Object {
 	 * @param value The value.
 	 */
 	constructor(value: Value | null = null) {
-		super();
-
 		this.value = value;
 	}
 

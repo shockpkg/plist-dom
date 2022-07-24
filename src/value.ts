@@ -4,7 +4,7 @@ import {IElement, xmlDecode, xmlElementText} from './util';
 /**
  * Value object.
  */
-export abstract class Value extends Object {
+export abstract class Value {
 	/**
 	 * Value type.
 	 */
@@ -18,9 +18,7 @@ export abstract class Value extends Object {
 	/**
 	 * Value constructor.
 	 */
-	constructor() {
-		super();
-	}
+	constructor() {}
 
 	/**
 	 * Value type.
