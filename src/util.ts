@@ -40,36 +40,6 @@ export function defaultValue<T, U>(
 }
 
 /**
- * Default null if value is undefined.
- *
- * @param value Value.
- * @returns Value or null if undefined.
- */
-export function defaultNull<T>(value: T) {
-	return defaultValue(value, null);
-}
-
-/**
- * Default false if value is undefined.
- *
- * @param value Value.
- * @returns Value or false if undefined.
- */
-export function defaultFalse<T>(value: T) {
-	return defaultValue(value, false);
-}
-
-/**
- * Default true if value is undefined.
- *
- * @param value Value.
- * @returns Value or true if undefined.
- */
-export function defaultTrue<T>(value: T) {
-	return defaultValue(value, true);
-}
-
-/**
  * Encode string for XML.
  *
  * @param value String value.
@@ -132,7 +102,6 @@ export function xmlDecode(xml: string) {
 			}
 		}
 	});
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
 	const doc = parser.parseFromString(xml, 'text/xml') as unknown as {
 		documentElement: Readonly<IElement>;
 		childNodes: {}[];
