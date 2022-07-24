@@ -189,7 +189,7 @@ export function xmlElementChildElements<T extends Readonly<IElement>>(
 		}
 		const {nodeValue} = childNode;
 		if (nodeValue && !/^\s*$/.test(nodeValue)) {
-			throw new Error(`Found non-element children: ${element.tagName}`);
+			throw new Error(`Found text children of: ${element.tagName}`);
 		}
 	}
 	return r;
@@ -207,7 +207,7 @@ export function xmlElementText(element: Readonly<IElement>) {
 	let r: IText | null = null;
 	for (let i = 0, l = childNodes.length; i < l; i++) {
 		if (i) {
-			throw new Error(`Multiple child elements: ${element.tagName}`);
+			throw new Error(`Multiple child elements in: ${element.tagName}`);
 		}
 
 		const childNode = childNodes[i];
@@ -218,7 +218,7 @@ export function xmlElementText(element: Readonly<IElement>) {
 		) {
 			r = childNode as IText;
 		} else {
-			throw new Error(`Unexpected child element: ${element.tagName}`);
+			throw new Error(`Unexpected child element in: ${element.tagName}`);
 		}
 	}
 	return r;
@@ -268,7 +268,7 @@ export function decodeIntBase10(str: string) {
 }
 
 /**
- * Assert number if integer.
+ * Assert number is integer.
  *
  * @param value Number value.
  */
