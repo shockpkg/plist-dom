@@ -57,8 +57,12 @@ export class ValueData extends Value {
 		const p = optioned.indentString.repeat(depth);
 		const r = [`${p}<data>`];
 		const c = optioned.dataColumns;
-		for (const s of stringChunk(this.value.toString('base64'), c)) {
-			r.push(`${p}${s}`);
+		if (c > 0) {
+			for (const s of stringChunk(this.value.toString('base64'), c)) {
+				r.push(`${p}${s}`);
+			}
+		} else {
+			r.push(`${p}${this.value.toString('base64')}`);
 		}
 		r.push(`${p}</data>`);
 		return r.join(optioned.newlineString);
