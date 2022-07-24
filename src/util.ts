@@ -1,6 +1,6 @@
 import * as entities from 'entities';
 // @ts-ignore
-import xmldom from 'xmldom';
+import xmldom from '@xmldom/xmldom';
 
 // Handle module loader differences between CJS and ESM.
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -133,7 +133,7 @@ export function xmlDecode(xml: string) {
 		}
 	});
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
-	const doc = parser.parseFromString(xml, 'text/xml') as {
+	const doc = parser.parseFromString(xml, 'text/xml') as unknown as {
 		documentElement: Readonly<IElement>;
 		childNodes: {}[];
 	};
