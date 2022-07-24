@@ -39,6 +39,9 @@ jobs:
       - name: Test CJS
         run: npm run test:cjs
 
+      - name: Test ESN
+        run: npm run test:esm
+
       - name: Lint
         run: npm run lint
         if: matrix.config.NO_LINT != 1
