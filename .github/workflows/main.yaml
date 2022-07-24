@@ -39,7 +39,7 @@ jobs:
       - name: Test CJS
         run: npm run test:cjs
 
-      - name: Test ESN
+      - name: Test ESM
         run: npm run test:esm
 
       - name: Lint
