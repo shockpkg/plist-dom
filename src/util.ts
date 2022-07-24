@@ -1,14 +1,5 @@
-import * as entities from 'entities';
-// @ts-ignore
-import xmldom from '@xmldom/xmldom';
-
-// Handle module loader differences between CJS and ESM.
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-const decodeXML = entities.decodeXML || (entities as any).default.decodeXML;
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-const encodeXML = entities.encodeXML || (entities as any).default.encodeXML;
-// eslint-disable-next-line @typescript-eslint/naming-convention, @typescript-eslint/no-unsafe-assignment
-const {DOMParser} = xmldom;
+import {decodeXML, encodeXML} from 'entities';
+import {DOMParser} from '@xmldom/xmldom';
 
 const numberLimit = 0x1fffffffffffff;
 
