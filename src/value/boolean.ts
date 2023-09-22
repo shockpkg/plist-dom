@@ -1,5 +1,9 @@
 import {IToXmlOptioned} from '../options';
-import {IElement} from '../util';
+import {
+	IElement,
+	assertNoXmlElementChildNodes,
+	assertXmlTagName
+} from '../util';
 import {Value} from '../value';
 
 /**
@@ -38,17 +42,20 @@ export class ValueBoolean extends Value {
 	 * @param element XML element.
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
-		this._assertNoXmlElementChildNodes(element);
-		const {tagName} = element;
-		if (tagName === 'true') {
-			this.value = true;
-			return;
+		assertNoXmlElementChildNodes(element);
+		switch (element.tagName) {
+			case 'true': {
+				this.value = true;
+				return;
+			}
+			case 'false': {
+				this.value = false;
+				return;
+			}
+			default: {
+				throw assertXmlTagName(element, '');
+			}
 		}
-		if (tagName === 'false') {
-			this.value = false;
-			return;
-		}
-		throw this._errorUnexpectedTagname(tagName);
 	}
 
 	/**

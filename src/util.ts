@@ -148,6 +148,31 @@ export function xmlElementText(element: Readonly<IElement>) {
 }
 
 /**
+ * Assert XML element has no children.
+ *
+ * @param element XML element.
+ * @param tagName XML element tag name.
+ */
+export function assertXmlTagName(element: Readonly<IElement>, tagName: string) {
+	const tn = element.tagName;
+	if (tn !== tagName) {
+		throw new Error(`Unexpected tagName: ${tagName}`);
+	}
+}
+
+/**
+ * Assert XML element has no children.
+ *
+ * @param element XML element.
+ */
+export function assertNoXmlElementChildNodes(element: Readonly<IElement>) {
+	const {childNodes} = element;
+	if (childNodes.length) {
+		throw new Error(`Unexpected child nodes: ${element.tagName}`);
+	}
+}
+
+/**
  * Chunk a string into substrings by a length.
  *
  * @param str Original string.

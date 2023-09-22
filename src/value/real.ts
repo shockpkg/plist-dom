@@ -1,5 +1,5 @@
 import {IToXmlOptioned} from '../options';
-import {IElement} from '../util';
+import {IElement, assertXmlTagName, xmlElementText} from '../util';
 import {Value} from '../value';
 
 /**
@@ -38,8 +38,8 @@ export class ValueReal extends Value {
 	 * @param element XML element.
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
-		this._assertXmlTagname(element, 'real');
-		const text = this._getXmlElementText(element) || '';
+		assertXmlTagName(element, 'real');
+		const text = xmlElementText(element)?.nodeValue || '';
 		if (!/^[-+]?([0-9]+|[0-9]*\.[0-9]+)$/.test(text)) {
 			throw new Error(`Invalid real data: ${text}`);
 		}

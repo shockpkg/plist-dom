@@ -1,5 +1,5 @@
 import {IToXmlOptioned} from '../options';
-import {IElement} from '../util';
+import {IElement, assertXmlTagName, xmlElementText} from '../util';
 import {Value} from '../value';
 
 /**
@@ -38,8 +38,8 @@ export class ValueDate extends Value {
 	 * @param element XML element.
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
-		this._assertXmlTagname(element, 'date');
-		const text = this._getXmlElementText(element) || '';
+		assertXmlTagName(element, 'date');
+		const text = xmlElementText(element)?.nodeValue || '';
 		const v = new Date(text);
 		const time = v.getTime();
 		if (!time && time !== 0) {

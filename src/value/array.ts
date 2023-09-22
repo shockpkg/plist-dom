@@ -1,5 +1,5 @@
 import {IToXmlOptioned} from '../options';
-import {IElement, xmlElementChildElements} from '../util';
+import {IElement, assertXmlTagName, xmlElementChildElements} from '../util';
 import {Value} from '../value';
 
 import * as tags from './index';
@@ -158,7 +158,7 @@ export class ValueArray extends Value {
 	 * @param element XML element.
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
-		this._assertXmlTagname(element, 'array');
+		assertXmlTagName(element, 'array');
 		const children = xmlElementChildElements(element);
 		this.value = children.map(el => this.childFromXmlElement(el));
 	}

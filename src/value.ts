@@ -1,5 +1,5 @@
 import {IToXmlOptioned, IToXmlOptions, toXmlOptionsOptioned} from './options';
-import {IElement, xmlDecode, xmlElementText} from './util';
+import {IElement, xmlDecode} from './util';
 
 /**
  * Value object.
@@ -74,52 +74,6 @@ export abstract class Value {
 	public fromXml(xml: string) {
 		const {documentElement} = xmlDecode(xml);
 		this.fromXmlElement(documentElement);
-	}
-
-	/**
-	 * Get XML element text.
-	 *
-	 * @param element XML element.
-	 * @returns Element text.
-	 */
-	protected _getXmlElementText(element: Readonly<IElement>) {
-		const el = xmlElementText(element);
-		return el ? el.nodeValue : '';
-	}
-
-	/**
-	 * Assert XML element has no children.
-	 *
-	 * @param element XML element.
-	 */
-	protected _assertNoXmlElementChildNodes(element: Readonly<IElement>) {
-		const {childNodes} = element;
-		if (childNodes.length) {
-			throw new Error(`Unexpected child nodes: ${element.tagName}`);
-		}
-	}
-
-	/**
-	 * Assert XML element has no children.
-	 *
-	 * @param element XML element.
-	 * @param tagName XML element tag name.
-	 */
-	protected _assertXmlTagname(element: Readonly<IElement>, tagName: string) {
-		const tn = element.tagName;
-		if (tn !== tagName) {
-			throw this._errorUnexpectedTagname(tn);
-		}
-	}
-
-	/**
-	 * Create unexpected tagName error.
-	 *
-	 * @param tagName XML element tag name.
-	 * @returns Error object.
-	 */
-	protected _errorUnexpectedTagname(tagName: string) {
-		return new Error(`Unexpected tagName: ${tagName}`);
 	}
 
 	/**

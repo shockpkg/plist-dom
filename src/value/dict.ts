@@ -1,5 +1,10 @@
 import {IToXmlOptioned} from '../options';
-import {IElement, xmlElementChildElements} from '../util';
+import {
+	IElement,
+	assertXmlTagName,
+	xmlElementChildElements,
+	xmlElementText
+} from '../util';
 import {Value} from '../value';
 
 import * as tags from './index';
@@ -130,7 +135,7 @@ export class ValueDict extends Value {
 	 * @param element XML element.
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
-		this._assertXmlTagname(element, 'dict');
+		assertXmlTagName(element, 'dict');
 		const children = xmlElementChildElements(element);
 		const l = children.length;
 		if (l % 2) {
@@ -140,8 +145,8 @@ export class ValueDict extends Value {
 		for (let i = 0; i < l; i += 2) {
 			const eK = children[i];
 			const eV = children[i + 1];
-			this._assertXmlTagname(eK, 'key');
-			const key = this._getXmlElementText(eK) || '';
+			assertXmlTagName(eK, 'key');
+			const key = xmlElementText(eK)?.nodeValue || '';
 			const value = this.childFromXmlElement(eV);
 			v.set(key, value);
 		}

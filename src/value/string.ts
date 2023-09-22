@@ -1,5 +1,5 @@
 import {IToXmlOptioned} from '../options';
-import {IElement} from '../util';
+import {IElement, assertXmlTagName, xmlElementText} from '../util';
 import {Value} from '../value';
 
 /**
@@ -38,8 +38,8 @@ export class ValueString extends Value {
 	 * @param element XML element.
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
-		this._assertXmlTagname(element, 'string');
-		this.value = this._getXmlElementText(element) || '';
+		assertXmlTagName(element, 'string');
+		this.value = xmlElementText(element)?.nodeValue || '';
 	}
 
 	/**

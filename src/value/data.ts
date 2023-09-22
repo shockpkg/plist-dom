@@ -1,5 +1,5 @@
 import {IToXmlOptioned} from '../options';
-import {IElement, stringChunk} from '../util';
+import {IElement, assertXmlTagName, stringChunk, xmlElementText} from '../util';
 import {Value} from '../value';
 
 /**
@@ -38,8 +38,8 @@ export class ValueData extends Value {
 	 * @param element XML element.
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
-		this._assertXmlTagname(element, 'data');
-		const b64 = this._getXmlElementText(element) || '';
+		assertXmlTagName(element, 'data');
+		const b64 = xmlElementText(element)?.nodeValue || '';
 		if (!/^[0-9a-z+/\s]*[=]?\s*[=]?\s*$/i.test(b64)) {
 			throw new Error(`Invalid base64 data: ${b64}`);
 		}

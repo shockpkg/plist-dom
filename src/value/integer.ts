@@ -1,5 +1,5 @@
 import {IToXmlOptioned} from '../options';
-import {IElement} from '../util';
+import {IElement, assertXmlTagName, xmlElementText} from '../util';
 import {Value} from '../value';
 
 const MAX_NUM = 0x1fffffffffffff;
@@ -70,8 +70,8 @@ export class ValueInteger extends Value {
 	 * @param element XML element.
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
-		this._assertXmlTagname(element, 'integer');
-		const text = this._getXmlElementText(element) || '';
+		assertXmlTagName(element, 'integer');
+		const text = xmlElementText(element)?.nodeValue || '';
 		if (!/^[-+]?[0-9]+$/.test(text)) {
 			throw new Error(`Invalid integer data: ${text}`);
 		}
