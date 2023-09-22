@@ -1,4 +1,4 @@
-import {IToXmlOptioned} from '../options';
+import {INDENT_STRING, IToXmlOptions} from '../options';
 import {IElement, assertXmlTagName, xmlElementText} from '../util';
 import {Value} from '../value';
 
@@ -65,9 +65,7 @@ export class ValueInteger extends Value {
 	}
 
 	/**
-	 * Decode value from element.
-	 *
-	 * @param element XML element.
+	 * @inheritdoc
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
 		assertXmlTagName(element, 'integer');
@@ -80,14 +78,11 @@ export class ValueInteger extends Value {
 	}
 
 	/**
-	 * Encode element to string.
-	 *
-	 * @param optioned Optioned object.
-	 * @param depth Indent depth.
-	 * @returns XML string.
+	 * @inheritdoc
 	 */
-	protected _toXml(optioned: Readonly<IToXmlOptioned>, depth: number) {
-		const p = optioned.indentString.repeat(depth);
+	public toXml(options: Readonly<IToXmlOptions> | null = null, depth = 0) {
+		const indentString = options?.indentString ?? INDENT_STRING;
+		const p = indentString.repeat(depth);
 		const v = this.value;
 		assertInteger(v);
 		return `${p}<integer>${v}</integer>`;

@@ -1,4 +1,4 @@
-import {IToXmlOptioned} from '../options';
+import {INDENT_STRING, NEWLINE_STRING, IToXmlOptions} from '../options';
 import {IElement, assertXmlTagName, xmlElementChildElements} from '../util';
 import {Value} from '../value';
 
@@ -153,9 +153,7 @@ export class ValueArray extends Value {
 	}
 
 	/**
-	 * Decode value from element.
-	 *
-	 * @param element XML element.
+	 * @inheritdoc
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
 		assertXmlTagName(element, 'array');
@@ -182,23 +180,21 @@ export class ValueArray extends Value {
 	}
 
 	/**
-	 * Encode element to string.
-	 *
-	 * @param optioned Optioned object.
-	 * @param depth Indent depth.
-	 * @returns XML string.
+	 * @inheritdoc
 	 */
-	protected _toXml(optioned: Readonly<IToXmlOptioned>, depth: number) {
-		const p = optioned.indentString.repeat(depth);
+	public toXml(options: Readonly<IToXmlOptions> | null = null, depth = 0) {
+		const indentString = options?.indentString ?? INDENT_STRING;
+		const newlineString = options?.newlineString ?? NEWLINE_STRING;
+		const p = indentString.repeat(depth);
 		const v = this.value;
 		if (!v.length) {
 			return `${p}<array/>`;
 		}
 		const r = [`${p}<array>`];
 		for (const el of v) {
-			r.push(el.toXml(optioned, depth + 1));
+			r.push(el.toXml(options, depth + 1));
 		}
 		r.push(`${p}</array>`);
-		return r.join(optioned.newlineString);
+		return r.join(newlineString);
 	}
 }

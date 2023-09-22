@@ -1,4 +1,4 @@
-import {IToXmlOptioned, IToXmlOptions, toXmlOptionsOptioned} from './options';
+import {IToXmlOptions} from './options';
 import {IElement, xmlDecode} from './util';
 
 /**
@@ -56,17 +56,6 @@ export abstract class Value {
 	}
 
 	/**
-	 * Encode Value to string.
-	 *
-	 * @param options Options object.
-	 * @param depth Indent depth.
-	 * @returns Xml string.
-	 */
-	public toXml(options: Readonly<IToXmlOptions> | null = null, depth = 0) {
-		return this._toXml(toXmlOptionsOptioned(options), depth);
-	}
-
-	/**
 	 * Decode document from string.
 	 *
 	 * @param xml XML string.
@@ -86,12 +75,12 @@ export abstract class Value {
 	/**
 	 * Encode Value to string.
 	 *
-	 * @param optioned Optioned object.
+	 * @param options Options object.
 	 * @param depth Indent depth.
-	 * @returns XML string.
+	 * @returns Xml string.
 	 */
-	protected abstract _toXml(
-		optioned: Readonly<IToXmlOptioned>,
-		depth: number
+	public abstract toXml(
+		options?: Readonly<IToXmlOptions> | null,
+		depth?: number
 	): string;
 }

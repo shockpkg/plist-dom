@@ -1,4 +1,9 @@
-import {IToXmlOptioned} from '../options';
+import {
+	DATA_COLUMNS,
+	INDENT_STRING,
+	IToXmlOptions,
+	NEWLINE_STRING
+} from '../options';
 import {IElement, assertXmlTagName, stringChunk, xmlElementText} from '../util';
 import {Value} from '../value';
 
@@ -33,9 +38,7 @@ export class ValueData extends Value {
 	}
 
 	/**
-	 * Decode value from element.
-	 *
-	 * @param element XML element.
+	 * @inheritdoc
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
 		assertXmlTagName(element, 'data');
@@ -47,16 +50,14 @@ export class ValueData extends Value {
 	}
 
 	/**
-	 * Encode element to string.
-	 *
-	 * @param optioned Optioned object.
-	 * @param depth Indent depth.
-	 * @returns XML string.
+	 * @inheritdoc
 	 */
-	protected _toXml(optioned: Readonly<IToXmlOptioned>, depth: number) {
-		const p = optioned.indentString.repeat(depth);
+	public toXml(options: Readonly<IToXmlOptions> | null = null, depth = 0) {
+		const indentString = options?.indentString ?? INDENT_STRING;
+		const newlineString = options?.newlineString ?? NEWLINE_STRING;
+		const c = options?.dataColumns ?? DATA_COLUMNS;
+		const p = indentString.repeat(depth);
 		const r = [`${p}<data>`];
-		const c = optioned.dataColumns;
 		if (c > 0) {
 			for (const s of stringChunk(this.value.toString('base64'), c)) {
 				r.push(`${p}${s}`);
@@ -65,6 +66,6 @@ export class ValueData extends Value {
 			r.push(`${p}${this.value.toString('base64')}`);
 		}
 		r.push(`${p}</data>`);
-		return r.join(optioned.newlineString);
+		return r.join(newlineString);
 	}
 }

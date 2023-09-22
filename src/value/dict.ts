@@ -1,4 +1,4 @@
-import {IToXmlOptioned} from '../options';
+import {INDENT_STRING, NEWLINE_STRING, IToXmlOptions} from '../options';
 import {
 	IElement,
 	assertXmlTagName,
@@ -130,9 +130,7 @@ export class ValueDict extends Value {
 	}
 
 	/**
-	 * Decode value from element.
-	 *
-	 * @param element XML element.
+	 * @inheritdoc
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
 		assertXmlTagName(element, 'dict');
@@ -172,28 +170,26 @@ export class ValueDict extends Value {
 	}
 
 	/**
-	 * Encode element to string.
-	 *
-	 * @param optioned Optioned object.
-	 * @param depth Indent depth.
-	 * @returns XML string.
+	 * @inheritdoc
 	 */
-	protected _toXml(optioned: Readonly<IToXmlOptioned>, depth: number) {
-		const p = optioned.indentString.repeat(depth);
+	public toXml(options: Readonly<IToXmlOptions> | null = null, depth = 0) {
+		const indentString = options?.indentString ?? INDENT_STRING;
+		const newlineString = options?.newlineString ?? NEWLINE_STRING;
+		const p = indentString.repeat(depth);
 		const v = this.value;
 		if (!v.size) {
 			return `${p}<dict/>`;
 		}
-		const p2 = optioned.indentString.repeat(depth + 1);
+		const p2 = indentString.repeat(depth + 1);
 		const r = [`${p}<dict>`];
 		for (const [key, val] of v) {
 			const e = key
 				.replaceAll('&', '&amp;')
 				.replaceAll('<', '&lt;')
 				.replaceAll('>', '&gt;');
-			r.push(`${p2}<key>${e}</key>`, val.toXml(optioned, depth + 1));
+			r.push(`${p2}<key>${e}</key>`, val.toXml(options, depth + 1));
 		}
 		r.push(`${p}</dict>`);
-		return r.join(optioned.newlineString);
+		return r.join(newlineString);
 	}
 }

@@ -1,4 +1,4 @@
-import {IToXmlOptioned} from '../options';
+import {INDENT_STRING, IToXmlOptions} from '../options';
 import {IElement, assertXmlTagName, xmlElementText} from '../util';
 import {Value} from '../value';
 
@@ -33,9 +33,7 @@ export class ValueDate extends Value {
 	}
 
 	/**
-	 * Decode value from element.
-	 *
-	 * @param element XML element.
+	 * @inheritdoc
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
 		assertXmlTagName(element, 'date');
@@ -49,14 +47,11 @@ export class ValueDate extends Value {
 	}
 
 	/**
-	 * Encode element to string.
-	 *
-	 * @param optioned Optioned object.
-	 * @param depth Indent depth.
-	 * @returns XML string.
+	 * @inheritdoc
 	 */
-	protected _toXml(optioned: Readonly<IToXmlOptioned>, depth: number) {
-		const p = optioned.indentString.repeat(depth);
+	public toXml(options: Readonly<IToXmlOptions> | null = null, depth = 0) {
+		const indentString = options?.indentString ?? INDENT_STRING;
+		const p = indentString.repeat(depth);
 		const d = this.value.toISOString().replace(/\.\d+/, '');
 		return `${p}<date>${d}</date>`;
 	}

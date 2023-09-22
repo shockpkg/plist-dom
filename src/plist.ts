@@ -1,4 +1,4 @@
-import {IToXmlOptioned, IToXmlOptions, toXmlOptionsOptioned} from './options';
+import {INDENT_ROOT, IToXmlOptions, NEWLINE_STRING} from './options';
 import {IElement, xmlDecode, xmlElementChildElements} from './util';
 import {Value} from './value';
 import {ValueArray} from './value/array';
@@ -84,16 +84,6 @@ export class Plist {
 	}
 
 	/**
-	 * Encode documents to string.
-	 *
-	 * @param options Encode options.
-	 * @returns XML string.
-	 */
-	public toXml(options: Readonly<IToXmlOptions> | null = null) {
-		return this._toXml(toXmlOptionsOptioned(options));
-	}
-
-	/**
 	 * Decode document from string.
 	 *
 	 * @param xml XML string.
@@ -147,18 +137,21 @@ export class Plist {
 	/**
 	 * Encode documents to string.
 	 *
-	 * @param optioned Encode options.
+	 * @param options Options object.
 	 * @returns XML string.
 	 */
-	protected _toXml(optioned: Readonly<IToXmlOptioned>) {
+	public toXml(options: Readonly<IToXmlOptions> | null = null) {
+		const indentRoot = options?.indentRoot ?? INDENT_ROOT;
+		const newlineString = options?.newlineString ?? NEWLINE_STRING;
+
 		const v = this.value;
-		const d = optioned.indentRoot ? 1 : 0;
+		const d = indentRoot ? 1 : 0;
 		return [
 			...[this.xmlDeclaration, this.xmlDoctype].filter(Boolean),
 			'<plist version="1.0">',
-			...(v ? [v.toXml(optioned, d)] : []),
+			...(v ? [v.toXml(options, d)] : []),
 			'</plist>',
 			''
-		].join(optioned.newlineString);
+		].join(newlineString);
 	}
 }
