@@ -17,21 +17,6 @@ export interface IElement {
 }
 
 /**
- * Default value if value is undefined.
- *
- * @param value Value.
- * @param defaultValue Default value.
- * @returns Value or the default value if undefined.
- */
-export function defaultValue<T, U>(
-	value: T,
-	defaultValue: U
-): Exclude<T | U, undefined> {
-	// eslint-disable-next-line no-undefined, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
-	return value === undefined ? defaultValue : (value as any);
-}
-
-/**
  * Encode string for XML.
  *
  * @param value String value.
@@ -194,9 +179,8 @@ export function xmlElementText(element: Readonly<IElement>) {
  */
 export function stringChunk(str: string, len: number) {
 	const r: string[] = [];
-	for (let s = str; s.length; ) {
+	for (let s = str; s; s = s.substring(len)) {
 		r.push(s.substring(0, len));
-		s = s.substring(len);
 	}
 	return r;
 }

@@ -1,5 +1,3 @@
-import {defaultValue} from './util';
-
 export interface IToXmlOptions {
 	//
 	/**
@@ -7,31 +5,52 @@ export interface IToXmlOptions {
 	 *
 	 * @default '\t'
 	 */
-	indentString?: string;
+	indentString?: string | null;
 
 	/**
 	 * Newline string.
 	 *
 	 * @default '\n'
 	 */
-	newlineString?: string;
+	newlineString?: string | null;
 
 	/**
 	 * Data columns, zero of negative for one row.
 	 *
 	 * @default 68
 	 */
-	dataColumns?: number;
+	dataColumns?: number | null;
 
 	/**
 	 * Indent root element content.
 	 *
 	 * @default false
 	 */
-	indentRoot?: boolean;
+	indentRoot?: boolean | null;
 }
 
-export type IToXmlOptioned = Required<IToXmlOptions>;
+export interface IToXmlOptioned {
+	//
+	/**
+	 * Indent string.
+	 */
+	indentString: string;
+
+	/**
+	 * Newline string.
+	 */
+	newlineString: string;
+
+	/**
+	 * Data columns, zero of negative for one row.
+	 */
+	dataColumns: number;
+
+	/**
+	 * Indent root element content.
+	 */
+	indentRoot: boolean;
+}
 
 /**
  * Convert IToXmlOptions to IToXmlOptioned with defaults.
@@ -44,9 +63,9 @@ export function toXmlOptionsOptioned(
 ): IToXmlOptioned {
 	options = options || {};
 	return {
-		indentString: defaultValue(options.indentString, '\t'),
-		newlineString: defaultValue(options.newlineString, '\n'),
-		dataColumns: defaultValue(options.dataColumns, 68),
-		indentRoot: defaultValue(options.indentRoot, false)
+		indentString: options.indentString ?? '\t',
+		newlineString: options.newlineString ?? '\n',
+		dataColumns: options.dataColumns ?? 68,
+		indentRoot: options.indentRoot ?? false
 	};
 }
