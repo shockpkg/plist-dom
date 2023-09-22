@@ -29,7 +29,7 @@ export class ValueArray extends Value {
 		if (!childTagNames) {
 			childTagNames = new Map();
 			for (const ValueType of Object.values(tags)) {
-				if (ValueType && ValueType.prototype instanceof Value) {
+				if (ValueType?.prototype instanceof Value) {
 					for (const t of ValueType.TAG_NAMES) {
 						childTagNames.set(t, ValueType);
 					}
