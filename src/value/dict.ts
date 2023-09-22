@@ -2,15 +2,9 @@ import {IToXmlOptioned} from '../options';
 import {IElement, xmlElementChildElements} from '../util';
 import {Value} from '../value';
 
-import {ValueArray} from './array';
-import {ValueBoolean} from './boolean';
-import {ValueData} from './data';
-import {ValueDate} from './date';
-import {ValueInteger} from './integer';
-import {ValueReal} from './real';
-import {ValueString} from './string';
+import * as tags from './index';
 
-let childTagNames: Map<string, new () => Value>;
+let childTagNames: Readonly<Map<string, new () => Value>>;
 
 /**
  * ValueDict object.
@@ -34,31 +28,15 @@ export class ValueDict extends Value {
 	public static get CHILD_TAG_NAMES() {
 		if (!childTagNames) {
 			childTagNames = new Map();
-			for (const Value of [
-				ValueArray,
-				ValueBoolean,
-				ValueData,
-				ValueDate,
-				ValueDict,
-				ValueInteger,
-				ValueReal,
-				ValueString
-			]) {
-				for (const t of Value.TAG_NAMES) {
-					childTagNames.set(t, Value);
+			for (const ValueType of Object.values(tags)) {
+				if (ValueType && ValueType.prototype instanceof Value) {
+					for (const t of ValueType.TAG_NAMES) {
+						childTagNames.set(t, ValueType);
+					}
 				}
 			}
 		}
 		return childTagNames;
-	}
-
-	/**
-	 * Child types.
-	 *
-	 * @returns Child tag names map.
-	 */
-	public get childTagNames() {
-		return (this.constructor as typeof ValueArray).CHILD_TAG_NAMES;
 	}
 
 	/**
@@ -178,7 +156,8 @@ export class ValueDict extends Value {
 	 */
 	public childFromXmlElement(element: Readonly<IElement>) {
 		const type = element.tagName;
-		const Value = this.childTagNames.get(type) || null;
+		const {CHILD_TAG_NAMES} = this.constructor as typeof ValueDict;
+		const Value = CHILD_TAG_NAMES.get(type) || null;
 		if (!Value) {
 			throw new Error(`Unknown element type: ${type}`);
 		}
