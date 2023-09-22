@@ -190,18 +190,3 @@ export function decodeIntBase10(str: string) {
 	const num = +str;
 	return num > numberLimit || num < -numberLimit ? BigInt(str) : num;
 }
-
-/**
- * Assert number is integer.
- *
- * @param value Number value.
- */
-export function assertInteger(value: number | bigint) {
-	if (
-		typeof value === 'number'
-			? !Number.isInteger(value)
-			: typeof value !== 'bigint'
-	) {
-		throw new Error(`Value not an integer: ${value}`);
-	}
-}

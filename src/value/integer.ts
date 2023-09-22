@@ -1,6 +1,17 @@
 import {IToXmlOptioned} from '../options';
-import {IElement, assertInteger, decodeIntBase10} from '../util';
+import {IElement, decodeIntBase10} from '../util';
 import {Value} from '../value';
+
+/**
+ * Assert number is integer.
+ *
+ * @param value Number value.
+ */
+function assertInteger(value: number | bigint) {
+	if (typeof value === 'number' && !Number.isInteger(value)) {
+		throw new Error(`Value not an integer: ${value}`);
+	}
+}
 
 /**
  * ValueInteger object.
