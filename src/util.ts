@@ -13,6 +13,7 @@ export interface IElement {
 		length: number;
 		[index: number]: IElement | IText;
 	};
+	toString: () => string;
 }
 
 /**
@@ -26,7 +27,7 @@ export function defaultValue<T, U>(
 	value: T,
 	defaultValue: U
 ): Exclude<T | U, undefined> {
-	// eslint-disable-next-line no-undefined, @typescript-eslint/no-unsafe-return
+	// eslint-disable-next-line no-undefined, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-explicit-any
 	return value === undefined ? defaultValue : (value as any);
 }
 
@@ -95,7 +96,7 @@ export function xmlDecode(xml: string) {
 	});
 	const doc = parser.parseFromString(xml, 'text/xml') as unknown as {
 		documentElement: Readonly<IElement>;
-		childNodes: {}[];
+		childNodes: {toString: () => string}[];
 	};
 	if (errors.length) {
 		throw new Error(`XML decode error: ${errors[0]}`);
@@ -232,7 +233,7 @@ export function decodeIntBase10(str: string) {
  *
  * @param value Number value.
  */
-export function assertInteger(value: number | BigInt) {
+export function assertInteger(value: number | bigint) {
 	if (typeof value === 'number' && !Number.isInteger(value)) {
 		throw new Error(`Value not an integer: ${value}`);
 	}
