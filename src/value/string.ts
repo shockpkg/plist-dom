@@ -1,5 +1,5 @@
 import {IToXmlOptioned} from '../options';
-import {IElement, xmlEntitiesEncode} from '../util';
+import {IElement} from '../util';
 import {Value} from '../value';
 
 /**
@@ -51,6 +51,10 @@ export class ValueString extends Value {
 	 */
 	protected _toXml(optioned: Readonly<IToXmlOptioned>, depth: number) {
 		const p = optioned.indentString.repeat(depth);
-		return `${p}<string>${xmlEntitiesEncode(this.value)}</string>`;
+		const e = this.value
+			.replaceAll('&', '&amp;')
+			.replaceAll('<', '&lt;')
+			.replaceAll('>', '&gt;');
+		return `${p}<string>${e}</string>`;
 	}
 }

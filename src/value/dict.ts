@@ -1,5 +1,5 @@
 import {IToXmlOptioned} from '../options';
-import {IElement, xmlElementChildElements, xmlEntitiesEncode} from '../util';
+import {IElement, xmlElementChildElements} from '../util';
 import {Value} from '../value';
 
 import {ValueArray} from './array';
@@ -213,10 +213,11 @@ export class ValueDict extends Value {
 		const p2 = optioned.indentString.repeat(depth + 1);
 		const r = [`${p}<dict>`];
 		for (const [key, val] of v) {
-			r.push(
-				`${p2}<key>${xmlEntitiesEncode(key)}</key>`,
-				val.toXml(optioned, depth + 1)
-			);
+			const e = key
+				.replaceAll('&', '&amp;')
+				.replaceAll('<', '&lt;')
+				.replaceAll('>', '&gt;');
+			r.push(`${p2}<key>${e}</key>`, val.toXml(optioned, depth + 1));
 		}
 		r.push(`${p}</dict>`);
 		return r.join(optioned.newlineString);

@@ -28,12 +28,12 @@ void describe('value/string', () => {
 				);
 			});
 
-			void it('<&>', () => {
-				const el = new ValueString('<&>');
-				strictEqual(el.toXml(), '<string>&lt;&amp;&gt;</string>');
+			void it(`<'"&"'>`, () => {
+				const el = new ValueString(`<'"&"'>`);
+				strictEqual(el.toXml(), `<string>&lt;'"&amp;"'&gt;</string>`);
 				strictEqual(
 					el.toXml(null, 1),
-					'\t<string>&lt;&amp;&gt;</string>'
+					`\t<string>&lt;'"&amp;"'&gt;</string>`
 				);
 			});
 		});
@@ -45,10 +45,10 @@ void describe('value/string', () => {
 				strictEqual(el.value, 'hello world');
 			});
 
-			void it('<&>', () => {
+			void it(`<'"&"'>`, () => {
 				const el = new ValueString('');
-				el.fromXml('<string>&lt;&amp;&gt;</string>');
-				strictEqual(el.value, '<&>');
+				el.fromXml(`<string>&lt;'"&amp;"'&gt;</string>`);
+				strictEqual(el.value, `<'"&"'>`);
 			});
 
 			void it('empty', () => {

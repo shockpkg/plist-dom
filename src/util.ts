@@ -1,4 +1,3 @@
-import {decodeXML, encodeXML} from 'entities';
 import {DOMParser} from '@xmldom/xmldom';
 
 const numberLimit = 0x1fffffffffffff;
@@ -14,26 +13,6 @@ export interface IElement {
 		[index: number]: IElement | IText;
 	};
 	toString: () => string;
-}
-
-/**
- * Encode string for XML.
- *
- * @param value String value.
- * @returns Escaped string.
- */
-export function xmlEntitiesEncode(value: string) {
-	return encodeXML(value);
-}
-
-/**
- * Decode string for XML.
- *
- * @param value Encoded value.
- * @returns Decoded string.
- */
-export function xmlEntitiesDecode(value: string) {
-	return decodeXML(value);
 }
 
 /**
