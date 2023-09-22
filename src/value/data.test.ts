@@ -1,132 +1,140 @@
 /* eslint-disable max-nested-callbacks */
+import {describe, it} from 'node:test';
+import {strictEqual, throws} from 'node:assert';
+
 import {ValueData} from './data';
 
-describe('value/data', () => {
-	describe('ValueData', () => {
-		describe('constructor', () => {
-			it('length: 0', () => {
+void describe('value/data', () => {
+	void describe('ValueData', () => {
+		void describe('constructor', () => {
+			void it('length: 0', () => {
 				const el = new ValueData();
-				expect(el.value.toString('base64')).toBe('');
+				strictEqual(el.value.toString('base64'), '');
 			});
 
-			it('length: 10', () => {
+			void it('length: 10', () => {
 				const b = Buffer.alloc(10);
 				const el = new ValueData(b);
-				expect(el.value).toBe(b);
+				strictEqual(el.value, b);
 			});
 		});
 
-		describe('toXml', () => {
-			it('length: 0', () => {
+		void describe('toXml', () => {
+			void it('length: 0', () => {
 				const el = new ValueData();
-				expect(
+				strictEqual(
 					el.toXml({
 						dataColumns: 6
-					})
-				).toBe('<data>\n</data>');
-				expect(
+					}),
+					'<data>\n</data>'
+				);
+				strictEqual(
 					el.toXml(
 						{
 							dataColumns: 6
 						},
 						1
-					)
-				).toBe('\t<data>\n\t</data>');
+					),
+					'\t<data>\n\t</data>'
+				);
 			});
 
-			it('length: 10', () => {
+			void it('length: 10', () => {
 				const b = Buffer.alloc(10);
 				const el = new ValueData(b);
-				expect(el.toXml()).toBe('<data>\nAAAAAAAAAAAAAA==\n</data>');
-				expect(el.toXml(null, 1)).toBe(
+				strictEqual(el.toXml(), '<data>\nAAAAAAAAAAAAAA==\n</data>');
+				strictEqual(
+					el.toXml(null, 1),
 					'\t<data>\n\tAAAAAAAAAAAAAA==\n\t</data>'
 				);
 			});
 
-			it('length: 10 wrapped', () => {
+			void it('length: 10 wrapped', () => {
 				const b = Buffer.alloc(10);
 				const el = new ValueData(b);
-				expect(
+				strictEqual(
 					el.toXml({
 						dataColumns: 6
-					})
-				).toBe('<data>\nAAAAAA\nAAAAAA\nAA==\n</data>');
-				expect(
+					}),
+					'<data>\nAAAAAA\nAAAAAA\nAA==\n</data>'
+				);
+				strictEqual(
 					el.toXml(
 						{
 							dataColumns: 6
 						},
 						1
-					)
-				).toBe('\t<data>\n\tAAAAAA\n\tAAAAAA\n\tAA==\n\t</data>');
+					),
+					'\t<data>\n\tAAAAAA\n\tAAAAAA\n\tAA==\n\t</data>'
+				);
 			});
 		});
 
-		describe('fromXml', () => {
-			it('length: 0', () => {
+		void describe('fromXml', () => {
+			void it('length: 0', () => {
 				const b = Buffer.alloc(0);
 				const el = new ValueData(b);
 				const xml = el.toXml();
 				el.value = Buffer.alloc(1);
 				el.fromXml(xml);
-				expect(el.value.toString('base64')).toBe(b.toString('base64'));
+				strictEqual(el.value.toString('base64'), b.toString('base64'));
 			});
 
-			it('length: 1', () => {
+			void it('length: 1', () => {
 				const b = Buffer.alloc(1);
 				const el = new ValueData(b);
 				const xml = el.toXml();
 				el.value = Buffer.alloc(0);
 				el.fromXml(xml);
-				expect(el.value.toString('base64')).toBe(b.toString('base64'));
+				strictEqual(el.value.toString('base64'), b.toString('base64'));
 			});
 
-			it('length: 2', () => {
+			void it('length: 2', () => {
 				const b = Buffer.alloc(2);
 				const el = new ValueData(b);
 				const xml = el.toXml();
 				el.value = Buffer.alloc(0);
 				el.fromXml(xml);
-				expect(el.value.toString('base64')).toBe(b.toString('base64'));
+				strictEqual(el.value.toString('base64'), b.toString('base64'));
 			});
 
-			it('length: 3', () => {
+			void it('length: 3', () => {
 				const b = Buffer.alloc(3);
 				const el = new ValueData(b);
 				const xml = el.toXml();
 				el.value = Buffer.alloc(0);
 				el.fromXml(xml);
-				expect(el.value.toString('base64')).toBe(b.toString('base64'));
+				strictEqual(el.value.toString('base64'), b.toString('base64'));
 			});
 
-			it('length: 10', () => {
+			void it('length: 10', () => {
 				const b = Buffer.alloc(10);
 				const el = new ValueData(b);
 				const xml = el.toXml();
 				el.value = Buffer.alloc(0);
 				el.fromXml(xml);
-				expect(el.value.toString('base64')).toBe(b.toString('base64'));
+				strictEqual(el.value.toString('base64'), b.toString('base64'));
 			});
 
-			it('length: 100', () => {
+			void it('length: 100', () => {
 				const b = Buffer.alloc(100);
 				const el = new ValueData(b);
 				const xml = el.toXml();
 				el.value = Buffer.alloc(0);
 				el.fromXml(xml);
-				expect(el.value.toString('base64')).toBe(b.toString('base64'));
+				strictEqual(el.value.toString('base64'), b.toString('base64'));
 			});
 
-			it('length: 100', () => {
+			void it('length: 100', () => {
 				const b = Buffer.alloc(100);
 				const el = new ValueData(b);
 				const xml = el.toXml();
 				el.value = Buffer.alloc(0);
 				el.fromXml(xml);
-				expect(el.value.toString('base64')).toBe(b.toString('base64'));
+				strictEqual(el.value.toString('base64'), b.toString('base64'));
 			});
 
-			it('charset', () => {
+			void it('charset', () => {
 				const el = new ValueData();
 				el.fromXml(
 					[
@@ -137,31 +145,31 @@ describe('value/data', () => {
 						'</data>'
 					].join('\n')
 				);
-				expect(el.value.length).toBe(48);
+				strictEqual(el.value.length, 48);
 			});
 
-			it('baddata', () => {
+			void it('baddata', () => {
 				const el = new ValueData();
-				expect(() => {
+				throws(() => {
 					el.fromXml('<data>-</data>');
-				}).toThrow();
+				});
 			});
 
-			it('children', () => {
+			void it('children', () => {
 				const el = new ValueData();
-				expect(() => {
+				throws(() => {
 					el.fromXml('<data><a/></data>');
-				}).toThrow();
+				});
 			});
 
-			it('badtag', () => {
+			void it('badtag', () => {
 				const el = new ValueData();
-				expect(() => {
+				throws(() => {
 					el.fromXml('<bad/>');
-				}).toThrow();
-				expect(() => {
+				});
+				throws(() => {
 					el.fromXml('<bad></bad>');
-				}).toThrow();
+				});
 			});
 		});
 	});

@@ -1,5 +1,8 @@
 /* eslint-disable max-nested-callbacks */
 /* eslint-disable max-classes-per-file */
+import {describe, it} from 'node:test';
+import {ok, strictEqual, throws} from 'node:assert';
+
 import {IToXmlOptioned} from './options';
 import {IElement} from './util';
 import {Value} from './value';
@@ -42,29 +45,29 @@ class ValueB extends Value {
 	}
 }
 
-describe('value', () => {
-	describe('Value', () => {
-		describe('castTo', () => {
-			it('same type', () => {
+void describe('value', () => {
+	void describe('Value', () => {
+		void describe('castTo', () => {
+			void it('same type', () => {
 				const value = new ValueA();
-				expect(value.castTo(ValueA)).toBeTruthy();
+				ok(value.castTo(ValueA));
 			});
 
-			it('different type', () => {
+			void it('different type', () => {
 				const value = new ValueA();
-				expect(value.castTo(ValueB)).toBeNull();
+				strictEqual(value.castTo(ValueB), null);
 			});
 		});
 
-		describe('castAs', () => {
-			it('same type', () => {
+		void describe('castAs', () => {
+			void it('same type', () => {
 				const value = new ValueA();
-				expect(value.castAs(ValueA)).toBeTruthy();
+				ok(value.castAs(ValueA));
 			});
 
-			it('different type', () => {
+			void it('different type', () => {
 				const value = new ValueA();
-				expect(() => value.castAs(ValueB)).toThrow();
+				throws(() => value.castAs(ValueB));
 			});
 		});
 	});

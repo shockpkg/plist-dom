@@ -1,4 +1,7 @@
 /* eslint-disable max-nested-callbacks */
+import {describe, it} from 'node:test';
+import {ok, strictEqual, throws} from 'node:assert';
+
 import {Plist} from './plist';
 import {ValueBoolean} from './value/boolean';
 import {ValueString} from './value/string';
@@ -13,158 +16,162 @@ function plistBodyExtract(s: string) {
 	return s.replace(/^[\s\S]*<plist[^>]*>([\s\S]*)<\/plist>\n*$/, '$1');
 }
 
-describe('document', () => {
-	describe('Plist', () => {
-		describe('constructor', () => {
-			it('null', () => {
+void describe('document', () => {
+	void describe('Plist', () => {
+		void void describe('constructor', () => {
+			void void it('null', () => {
 				const doc = new Plist();
-				expect(doc.value).toBeNull();
+				strictEqual(doc.value, null);
 			});
 
-			it('value', () => {
+			void it('value', () => {
 				const value = new ValueBoolean(true);
 				const doc = new Plist(value);
-				expect(doc.value).toBe(value);
+				strictEqual(doc.value, value);
 			});
 		});
 
-		describe('getValue', () => {
-			it('null', () => {
+		void describe('getValue', () => {
+			void it('null', () => {
 				const doc = new Plist();
-				expect(() => doc.getValue()).toThrow();
+				throws(() => doc.getValue());
 			});
 
-			it('boolean', () => {
+			void it('boolean', () => {
 				const doc = new Plist(new ValueBoolean());
-				expect(doc.getValue()).toBeTruthy();
+				ok(doc.getValue());
 			});
 		});
 
-		describe('valueCastTo', () => {
-			it('null', () => {
+		void describe('valueCastTo', () => {
+			void it('null', () => {
 				const doc = new Plist();
-				expect(doc.valueCastTo(ValueString)).toBeNull();
+				strictEqual(doc.valueCastTo(ValueString), null);
 			});
 
-			it('same type', () => {
+			void it('same type', () => {
 				const doc = new Plist(new ValueBoolean());
-				expect(doc.valueCastTo(ValueBoolean)).toBeTruthy();
+				ok(doc.valueCastTo(ValueBoolean));
 			});
 
-			it('different type', () => {
+			void it('different type', () => {
 				const doc = new Plist(new ValueBoolean());
-				expect(doc.valueCastTo(ValueString)).toBeNull();
+				strictEqual(doc.valueCastTo(ValueString), null);
 			});
 		});
 
-		describe('valueCastAs', () => {
-			it('null', () => {
+		void describe('valueCastAs', () => {
+			void it('null', () => {
 				const doc = new Plist();
-				expect(() => doc.valueCastAs(ValueString)).toThrow();
+				throws(() => doc.valueCastAs(ValueString));
 			});
 
-			it('same type', () => {
+			void it('same type', () => {
 				const doc = new Plist(new ValueBoolean());
-				expect(doc.valueCastAs(ValueBoolean)).toBeTruthy();
+				ok(doc.valueCastAs(ValueBoolean));
 			});
 
-			it('different type', () => {
+			void it('different type', () => {
 				const doc = new Plist(new ValueBoolean());
-				expect(() => doc.valueCastAs(ValueString)).toThrow();
+				throws(() => doc.valueCastAs(ValueString));
 			});
 		});
 
-		describe('toXml', () => {
-			it('null', () => {
+		void describe('toXml', () => {
+			void it('null', () => {
 				const doc = new Plist();
-				expect(
+				strictEqual(
 					plistBodyExtract(
 						doc.toXml({
 							indentRoot: false
 						})
-					)
-				).toBe('\n');
-				expect(
+					),
+					'\n'
+				);
+				strictEqual(
 					plistBodyExtract(
 						doc.toXml({
 							indentRoot: true
 						})
-					)
-				).toBe('\n');
+					),
+					'\n'
+				);
 			});
 
-			it('true', () => {
+			void it('true', () => {
 				const doc = new Plist(new ValueBoolean(true));
-				expect(
+				strictEqual(
 					plistBodyExtract(
 						doc.toXml({
 							indentRoot: false
 						})
-					)
-				).toBe('\n<true/>\n');
-				expect(
+					),
+					'\n<true/>\n'
+				);
+				strictEqual(
 					plistBodyExtract(
 						doc.toXml({
 							indentRoot: true
 						})
-					)
-				).toBe('\n\t<true/>\n');
+					),
+					'\n\t<true/>\n'
+				);
 			});
 
-			it('xmlDeclaration', () => {
+			void it('xmlDeclaration', () => {
 				const doc = new Plist(new ValueBoolean(true));
 				const linesA = doc.toXml().split('\n');
-				expect(linesA[0]).toBe(doc.xmlDeclaration);
+				strictEqual(linesA[0], doc.xmlDeclaration);
 
 				doc.xmlDeclaration =
 					'<?xml version="1.0" encoding="UTF-8" standalone="no"?>';
 				const linesB = doc.toXml().split('\n');
-				expect(linesB[0]).toBe(doc.xmlDeclaration);
+				strictEqual(linesB[0], doc.xmlDeclaration);
 			});
 
-			it('doctype', () => {
+			void it('doctype', () => {
 				const doc = new Plist(new ValueBoolean(true));
 				const linesA = doc.toXml().split('\n');
-				expect(linesA[1]).toBe(doc.xmlDoctype);
+				strictEqual(linesA[1], doc.xmlDoctype);
 
 				doc.xmlDoctype = '<!DOCTYPE plist PUBLIC "" "">';
 				const linesB = doc.toXml().split('\n');
-				expect(linesB[1]).toBe(doc.xmlDoctype);
+				strictEqual(linesB[1], doc.xmlDoctype);
 			});
 
-			it('plist tags', () => {
+			void it('plist tags', () => {
 				const doc = new Plist(new ValueBoolean(true));
 				const linesA = doc.toXml().split('\n');
-				expect(linesA[2]).toBe('<plist version="1.0">');
-				expect(linesA[linesA.length - 2]).toBe('</plist>');
+				strictEqual(linesA[2], '<plist version="1.0">');
+				strictEqual(linesA[linesA.length - 2], '</plist>');
 			});
 
-			it('trailing newline', () => {
+			void it('trailing newline', () => {
 				const doc = new Plist(new ValueBoolean(true));
 				const xml = doc.toXml();
-				expect(xml.endsWith('\n')).toBe(true);
+				strictEqual(xml.endsWith('\n'), true);
 			});
 		});
 
-		describe('fromXml', () => {
-			it('null', () => {
+		void describe('fromXml', () => {
+			void it('null', () => {
 				const doc = new Plist();
 				const xml = doc.toXml();
 				doc.value = new ValueBoolean(true);
 				doc.fromXml(xml);
-				expect(doc.value).toBeNull();
+				strictEqual(doc.value, null);
 			});
 
-			it('boolean', () => {
+			void it('boolean', () => {
 				const doc = new Plist();
 				doc.value = new ValueBoolean(false);
 				const xml = doc.toXml();
 				doc.value = new ValueBoolean(true);
 				doc.fromXml(xml);
 				const {value} = doc;
-				expect(value).toBeTruthy();
+				ok(value);
 				if (value) {
-					expect(value.toXml()).toBe(new ValueBoolean(false).toXml());
+					strictEqual(value.toXml(), new ValueBoolean(false).toXml());
 				}
 			});
 		});

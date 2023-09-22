@@ -1,55 +1,62 @@
 /* eslint-disable max-nested-callbacks */
+import {describe, it} from 'node:test';
+import {strictEqual, throws} from 'node:assert';
+
 import {Value} from '../value';
 
 import {ValueArray} from './array';
 
-describe('value/array', () => {
-	describe('ValueArray', () => {
-		describe('constructor', () => {
-			it('length: 0', () => {
+void describe('value/array', () => {
+	void describe('ValueArray', () => {
+		void describe('constructor', () => {
+			void it('length: 0', () => {
 				const a: Value[] = [];
 				const el = new ValueArray(a);
-				expect(el.value).toBe(a);
+				strictEqual(el.value, a);
 			});
 
-			it('length: 1', () => {
+			void it('length: 1', () => {
 				const a: Value[] = [new ValueArray()];
 				const el = new ValueArray(a);
-				expect(el.value).toBe(a);
+				strictEqual(el.value, a);
 			});
 
-			it('length: 2', () => {
+			void it('length: 2', () => {
 				const a: Value[] = [new ValueArray(), new ValueArray()];
 				const el = new ValueArray(a);
-				expect(el.value).toBe(a);
+				strictEqual(el.value, a);
 			});
 		});
 
-		describe('toXml', () => {
-			it('length: 0', () => {
+		void describe('toXml', () => {
+			void it('length: 0', () => {
 				const el = new ValueArray([]);
-				expect(el.toXml()).toBe('<array/>');
-				expect(el.toXml(null, 1)).toBe('\t<array/>');
+				strictEqual(el.toXml(), '<array/>');
+				strictEqual(el.toXml(null, 1), '\t<array/>');
 			});
 
-			it('length: 1', () => {
+			void it('length: 1', () => {
 				const el = new ValueArray([new ValueArray()]);
-				expect(el.toXml()).toBe(
+				strictEqual(
+					el.toXml(),
 					['<array>', '\t<array/>', '</array>'].join('\n')
 				);
-				expect(el.toXml(null, 1)).toBe(
+				strictEqual(
+					el.toXml(null, 1),
 					['\t<array>', '\t\t<array/>', '\t</array>'].join('\n')
 				);
 			});
 
-			it('length: 2', () => {
+			void it('length: 2', () => {
 				const el = new ValueArray([new ValueArray(), new ValueArray()]);
-				expect(el.toXml()).toBe(
+				strictEqual(
+					el.toXml(),
 					['<array>', '\t<array/>', '\t<array/>', '</array>'].join(
 						'\n'
 					)
 				);
-				expect(el.toXml(null, 1)).toBe(
+				strictEqual(
+					el.toXml(null, 1),
 					[
 						'\t<array>',
 						'\t\t<array/>',
@@ -60,40 +67,40 @@ describe('value/array', () => {
 			});
 		});
 
-		describe('fromXml', () => {
-			it('length: 0', () => {
+		void describe('fromXml', () => {
+			void it('length: 0', () => {
 				const el = new ValueArray([new ValueArray()]);
 				el.fromXml('<array></array>');
-				expect(el.value.length).toBe(0);
+				strictEqual(el.value.length, 0);
 			});
 
-			it('length: 1', () => {
+			void it('length: 1', () => {
 				const el = new ValueArray();
 				el.fromXml('<array><true/></array>');
-				expect(el.value.length).toBe(1);
+				strictEqual(el.value.length, 1);
 			});
 
-			it('length: 2', () => {
+			void it('length: 2', () => {
 				const el = new ValueArray();
 				el.fromXml('<array><true/><true/></array>');
-				expect(el.value.length).toBe(2);
+				strictEqual(el.value.length, 2);
 			});
 
-			it('text', () => {
+			void it('text', () => {
 				const el = new ValueArray();
-				expect(() => {
+				throws(() => {
 					el.fromXml('<array>text</array>');
-				}).toThrow();
+				});
 			});
 
-			it('badtag', () => {
+			void it('badtag', () => {
 				const el = new ValueArray();
-				expect(() => {
+				throws(() => {
 					el.fromXml('<bad/>');
-				}).toThrow();
-				expect(() => {
+				});
+				throws(() => {
 					el.fromXml('<bad></bad>');
-				}).toThrow();
+				});
 			});
 		});
 	});
