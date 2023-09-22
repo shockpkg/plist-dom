@@ -1,6 +1,8 @@
 import {IToXmlOptioned} from '../options';
-import {IElement, decodeIntBase10} from '../util';
+import {IElement} from '../util';
 import {Value} from '../value';
+
+const MAX_NUM = 0x1fffffffffffff;
 
 /**
  * Assert number is integer.
@@ -69,7 +71,12 @@ export class ValueInteger extends Value {
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
 		this._assertXmlTagname(element, 'integer');
-		this.value = decodeIntBase10(this._getXmlElementText(element) || '');
+		const text = this._getXmlElementText(element) || '';
+		if (!/^[-+]?[0-9]+$/.test(text)) {
+			throw new Error(`Invalid integer data: ${text}`);
+		}
+		const num = +text;
+		this.value = num > MAX_NUM || num < -MAX_NUM ? BigInt(text) : num;
 	}
 
 	/**

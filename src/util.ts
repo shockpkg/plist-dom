@@ -1,7 +1,5 @@
 import {DOMParser} from '@xmldom/xmldom';
 
-const numberLimit = 0x1fffffffffffff;
-
 export interface IText {
 	nodeValue: string | null;
 }
@@ -162,31 +160,4 @@ export function stringChunk(str: string, len: number) {
 		r.push(s.substring(0, len));
 	}
 	return r;
-}
-
-/**
- * Decode real from string, or throw.
- *
- * @param str Integer string.
- * @returns Decoded integer.
- */
-export function decodeReal(str: string) {
-	if (!/^[-+]?([0-9]+|[0-9]*\.[0-9]+)$/.test(str)) {
-		throw new Error(`Invalid real data: ${str}`);
-	}
-	return +str;
-}
-
-/**
- * Decode base 10 integer from string, or throw.
- *
- * @param str Integer string.
- * @returns Decoded integer.
- */
-export function decodeIntBase10(str: string) {
-	if (!/^[-+]?[0-9]+$/.test(str)) {
-		throw new Error(`Invalid integer data: ${str}`);
-	}
-	const num = +str;
-	return num > numberLimit || num < -numberLimit ? BigInt(str) : num;
 }

@@ -1,7 +1,7 @@
 import {describe, it} from 'node:test';
 import {deepStrictEqual, strictEqual} from 'node:assert';
 
-import {stringChunk, xmlDecode, decodeIntBase10} from './util';
+import {stringChunk, xmlDecode} from './util';
 
 void describe('util', () => {
 	void describe('stringChunk', () => {
@@ -49,24 +49,6 @@ void describe('util', () => {
 			strictEqual(o.declaration, null);
 			strictEqual(o.doctype, null);
 			strictEqual(o.documentElement.toString(), '<xml>a</xml>');
-		});
-	});
-
-	void describe('decodeIntBase10', () => {
-		void it('0', () => {
-			strictEqual(decodeIntBase10('0'), 0);
-		});
-
-		void it('+42', () => {
-			strictEqual(decodeIntBase10('+42'), 42);
-		});
-
-		void it('42', () => {
-			strictEqual(decodeIntBase10('42'), 42);
-		});
-
-		void it('-42', () => {
-			strictEqual(decodeIntBase10('-42'), -42);
 		});
 	});
 });
