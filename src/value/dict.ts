@@ -10,34 +10,7 @@ import {ValueInteger} from './integer';
 import {ValueReal} from './real';
 import {ValueString} from './string';
 
-let getChildTagNamesCache: Map<string, new () => Value> | null = null;
-
-/**
- * Get child tag names.
- *
- * @returns The map.
- */
-const getChildTagNames = () => {
-	if (!getChildTagNamesCache) {
-		getChildTagNamesCache = new Map();
-		for (const Value of [
-			ValueArray,
-			ValueBoolean,
-			ValueData,
-			ValueDate,
-			// eslint-disable-next-line @typescript-eslint/no-use-before-define
-			ValueDict,
-			ValueInteger,
-			ValueReal,
-			ValueString
-		]) {
-			for (const t of Value.TAG_NAMES) {
-				getChildTagNamesCache.set(t, Value);
-			}
-		}
-	}
-	return getChildTagNamesCache;
-};
+let childTagNames: Map<string, new () => Value>;
 
 /**
  * ValueDict object.
@@ -59,7 +32,24 @@ export class ValueDict extends Value {
 	 * @returns Child tag names map.
 	 */
 	public static get CHILD_TAG_NAMES() {
-		return getChildTagNames();
+		if (!childTagNames) {
+			childTagNames = new Map();
+			for (const Value of [
+				ValueArray,
+				ValueBoolean,
+				ValueData,
+				ValueDate,
+				ValueDict,
+				ValueInteger,
+				ValueReal,
+				ValueString
+			]) {
+				for (const t of Value.TAG_NAMES) {
+					childTagNames.set(t, Value);
+				}
+			}
+		}
+		return childTagNames;
 	}
 
 	/**
