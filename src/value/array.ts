@@ -170,11 +170,11 @@ export class ValueArray extends Value {
 	 * @returns Value element.
 	 */
 	public childFromXmlElement(element: Readonly<IElement>) {
-		const type = element.tagName;
+		const {tagName} = element;
 		const {CHILD_TAG_NAMES} = this.constructor as typeof ValueArray;
-		const Value = CHILD_TAG_NAMES.get(type) || null;
+		const Value = CHILD_TAG_NAMES.get(tagName) || null;
 		if (!Value) {
-			throw new Error(`Unknown element type: ${type}`);
+			throw new Error(`Unknown element type: ${tagName}`);
 		}
 		const r = new Value();
 		r.fromXmlElement(element);
