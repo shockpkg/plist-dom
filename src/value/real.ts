@@ -48,8 +48,7 @@ export class ValueReal extends Value {
 	 * @inheritdoc
 	 */
 	public toXml(options: Readonly<IToXmlOptions> | null = null, depth = 0) {
-		const indentString = options?.indentString ?? INDENT_STRING;
-		const p = indentString.repeat(depth);
+		const p = (options?.indentString ?? INDENT_STRING).repeat(depth);
 		const v = this.value;
 		return `${p}<real>${v}</real>`;
 	}

@@ -15,14 +15,14 @@ class ValueA extends Value {
 	}
 
 	public fromXmlElement(element: Readonly<IElement>): void {
-		throw new Error('Not implemented.');
+		throw new Error('Not implemented');
 	}
 
 	public toXml(
 		options?: Readonly<IToXmlOptions> | null,
 		depth?: number | undefined
 	): string {
-		throw new Error('Not implemented.');
+		throw new Error('Not implemented');
 	}
 }
 
@@ -34,14 +34,14 @@ class ValueB extends Value {
 	}
 
 	public fromXmlElement(element: Readonly<IElement>): void {
-		throw new Error('Not implemented.');
+		throw new Error('Not implemented');
 	}
 
 	public toXml(
 		options?: Readonly<IToXmlOptions> | null,
 		depth?: number | undefined
 	): string {
-		throw new Error('Not implemented.');
+		throw new Error('Not implemented');
 	}
 }
 

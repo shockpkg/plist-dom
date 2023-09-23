@@ -56,19 +56,18 @@ export class ValueData extends Value {
 	 * @inheritdoc
 	 */
 	public toXml(options: Readonly<IToXmlOptions> | null = null, depth = 0) {
-		const indentString = options?.indentString ?? INDENT_STRING;
-		const newlineString = options?.newlineString ?? NEWLINE_STRING;
+		const n = options?.newlineString ?? NEWLINE_STRING;
 		const c = options?.dataColumns ?? DATA_COLUMNS;
-		const p = indentString.repeat(depth);
-		const r = [`${p}<data>`];
+		const p = (options?.indentString ?? INDENT_STRING).repeat(depth);
+		let r = `${p}<data>`;
 		if (c > 0) {
 			for (let s = base64Encode(this.value); s; s = s.substring(c)) {
-				r.push(`${p}${s.substring(0, c)}`);
+				r += `${n}${p}${s.substring(0, c)}`;
 			}
 		} else {
-			r.push(`${p}${base64Encode(this.value)}`);
+			r += `${n}${p}${base64Encode(this.value)}`;
 		}
-		r.push(`${p}</data>`);
-		return r.join(newlineString);
+		r += `${n}${p}</data>`;
+		return r;
 	}
 }

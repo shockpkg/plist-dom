@@ -183,18 +183,17 @@ export class ValueArray extends Value {
 	 * @inheritdoc
 	 */
 	public toXml(options: Readonly<IToXmlOptions> | null = null, depth = 0) {
-		const indentString = options?.indentString ?? INDENT_STRING;
-		const newlineString = options?.newlineString ?? NEWLINE_STRING;
-		const p = indentString.repeat(depth);
+		const n = options?.newlineString ?? NEWLINE_STRING;
+		const p = (options?.indentString ?? INDENT_STRING).repeat(depth);
 		const v = this.value;
 		if (!v.length) {
 			return `${p}<array/>`;
 		}
-		const r = [`${p}<array>`];
+		let r = `${p}<array>`;
 		for (const el of v) {
-			r.push(el.toXml(options, depth + 1));
+			r += `${n}${el.toXml(options, depth + 1)}`;
 		}
-		r.push(`${p}</array>`);
-		return r.join(newlineString);
+		r += `${n}${p}</array>`;
+		return r;
 	}
 }

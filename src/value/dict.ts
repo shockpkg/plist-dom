@@ -173,23 +173,23 @@ export class ValueDict extends Value {
 	 * @inheritdoc
 	 */
 	public toXml(options: Readonly<IToXmlOptions> | null = null, depth = 0) {
-		const indentString = options?.indentString ?? INDENT_STRING;
-		const newlineString = options?.newlineString ?? NEWLINE_STRING;
-		const p = indentString.repeat(depth);
+		const i = options?.indentString ?? INDENT_STRING;
+		const n = options?.newlineString ?? NEWLINE_STRING;
+		const p = i.repeat(depth);
 		const v = this.value;
 		if (!v.size) {
 			return `${p}<dict/>`;
 		}
-		const p2 = indentString.repeat(depth + 1);
-		const r = [`${p}<dict>`];
+		const p2 = i.repeat(depth + 1);
+		let r = `${p}<dict>`;
 		for (const [key, val] of v) {
 			const e = key
 				.replaceAll('&', '&amp;')
 				.replaceAll('<', '&lt;')
 				.replaceAll('>', '&gt;');
-			r.push(`${p2}<key>${e}</key>`, val.toXml(options, depth + 1));
+			r += `${n}${p2}<key>${e}</key>${n}${val.toXml(options, depth + 1)}`;
 		}
-		r.push(`${p}</dict>`);
-		return r.join(newlineString);
+		r += `${n}${p}</dict>`;
+		return r;
 	}
 }

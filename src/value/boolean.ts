@@ -60,8 +60,7 @@ export class ValueBoolean extends Value {
 	 * @inheritdoc
 	 */
 	public toXml(options: Readonly<IToXmlOptions> | null = null, depth = 0) {
-		const indentString = options?.indentString ?? INDENT_STRING;
-		const p = indentString.repeat(depth);
+		const p = (options?.indentString ?? INDENT_STRING).repeat(depth);
 		return this.value ? `${p}<true/>` : `${p}<false/>`;
 	}
 }

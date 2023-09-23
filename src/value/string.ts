@@ -44,8 +44,7 @@ export class ValueString extends Value {
 	 * @inheritdoc
 	 */
 	public toXml(options: Readonly<IToXmlOptions> | null = null, depth = 0) {
-		const indentString = options?.indentString ?? INDENT_STRING;
-		const p = indentString.repeat(depth);
+		const p = (options?.indentString ?? INDENT_STRING).repeat(depth);
 		const e = this.value
 			.replaceAll('&', '&amp;')
 			.replaceAll('<', '&lt;')

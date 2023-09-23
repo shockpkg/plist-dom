@@ -141,17 +141,16 @@ export class Plist {
 	 * @returns XML string.
 	 */
 	public toXml(options: Readonly<IToXmlOptions> | null = null) {
-		const indentRoot = options?.indentRoot ?? INDENT_ROOT;
-		const newlineString = options?.newlineString ?? NEWLINE_STRING;
+		const ir = options?.indentRoot ?? INDENT_ROOT;
+		const n = options?.newlineString ?? NEWLINE_STRING;
 
 		const v = this.value;
-		const d = indentRoot ? 1 : 0;
 		return [
-			...[this.xmlDeclaration, this.xmlDoctype].filter(Boolean),
+			...[this.xmlDeclaration, this.xmlDoctype].filter(s => s),
 			'<plist version="1.0">',
-			...(v ? [v.toXml(options, d)] : []),
+			...(v ? [v.toXml(options, ir ? 1 : 0)] : []),
 			'</plist>',
 			''
-		].join(newlineString);
+		].join(n);
 	}
 }
