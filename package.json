@@ -55,6 +55,9 @@
 	"author": "JrMasterModelBuilder",
 	"copyright": "Copyright (c) 2019-2023 JrMasterModelBuilder",
 	"license": "MPL-2.0",
+	"dependencies": {
+		"@xmldom/xmldom": "^0.8.10"
+	},
 	"devDependencies": {
 		"@babel/cli": "^7.22.15",
 		"@babel/core": "^7.22.20",
@@ -74,8 +77,5 @@
 		"rimraf": "^5.0.1",
 		"source-map-support": "^0.5.21",
 		"typescript": "^5.2.2"
-	},
-	"dependencies": {
-		"@xmldom/xmldom": "^0.8.10"
 	}
 }
