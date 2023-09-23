@@ -186,21 +186,6 @@ export function assertNoXmlElementChildNodes(element: Readonly<IElement>) {
 }
 
 /**
- * Chunk a string into substrings by a length.
- *
- * @param str Original string.
- * @param len Chunk sizes.
- * @returns String chunks.
- */
-export function stringChunk(str: string, len: number) {
-	const r: string[] = [];
-	for (let s = str; s; s = s.substring(len)) {
-		r.push(s.substring(0, len));
-	}
-	return r;
-}
-
-/**
  * Base64 encode function mirroring decode function.
  *
  * @param data Byte array.

@@ -9,7 +9,6 @@ import {
 	assertXmlTagName,
 	base64Decode,
 	base64Encode,
-	stringChunk,
 	xmlElementText
 } from '../util';
 import {Value} from '../value';
@@ -63,8 +62,8 @@ export class ValueData extends Value {
 		const p = indentString.repeat(depth);
 		const r = [`${p}<data>`];
 		if (c > 0) {
-			for (const s of stringChunk(base64Encode(this.value), c)) {
-				r.push(`${p}${s}`);
+			for (let s = base64Encode(this.value); s; s = s.substring(c)) {
+				r.push(`${p}${s.substring(0, c)}`);
 			}
 		} else {
 			r.push(`${p}${base64Encode(this.value)}`);

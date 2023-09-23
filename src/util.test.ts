@@ -1,23 +1,9 @@
 import {describe, it} from 'node:test';
 import {deepStrictEqual, strictEqual} from 'node:assert';
 
-import {base64Decode, base64Encode, stringChunk, xmlDecode} from './util';
+import {base64Decode, base64Encode, xmlDecode} from './util';
 
 void describe('util', () => {
-	void describe('stringChunk', () => {
-		void it('exact', () => {
-			deepStrictEqual(stringChunk('12345678', 4), ['1234', '5678']);
-		});
-
-		void it('extra', () => {
-			deepStrictEqual(stringChunk('123456789', 4), ['1234', '5678', '9']);
-		});
-
-		void it('less', () => {
-			deepStrictEqual(stringChunk('123', 4), ['123']);
-		});
-	});
-
 	void describe('xmlDecode', () => {
 		const declaration = '<?xml version="1.0" encoding="UTF-8"?>';
 		const doctype =
