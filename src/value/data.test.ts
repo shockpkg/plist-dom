@@ -1,6 +1,6 @@
 /* eslint-disable max-nested-callbacks */
 import {describe, it} from 'node:test';
-import {strictEqual, throws} from 'node:assert';
+import {deepStrictEqual, strictEqual, throws} from 'node:assert';
 
 import {ValueData} from './data';
 
@@ -9,11 +9,11 @@ void describe('value/data', () => {
 		void describe('constructor', () => {
 			void it('length: 0', () => {
 				const el = new ValueData();
-				strictEqual(el.value.toString('base64'), '');
+				deepStrictEqual(el.value, new Uint8Array(0));
 			});
 
 			void it('length: 10', () => {
-				const b = Buffer.alloc(10);
+				const b = new Uint8Array(10);
 				const el = new ValueData(b);
 				strictEqual(el.value, b);
 			});
@@ -40,7 +40,7 @@ void describe('value/data', () => {
 			});
 
 			void it('length: 10', () => {
-				const b = Buffer.alloc(10);
+				const b = new Uint8Array(10);
 				const el = new ValueData(b);
 				strictEqual(el.toXml(), '<data>\nAAAAAAAAAAAAAA==\n</data>');
 				strictEqual(
@@ -50,7 +50,7 @@ void describe('value/data', () => {
 			});
 
 			void it('length: 10 wrapped', () => {
-				const b = Buffer.alloc(10);
+				const b = new Uint8Array(10);
 				const el = new ValueData(b);
 				strictEqual(
 					el.toXml({
@@ -72,66 +72,66 @@ void describe('value/data', () => {
 
 		void describe('fromXml', () => {
 			void it('length: 0', () => {
-				const b = Buffer.alloc(0);
+				const b = new Uint8Array(0);
 				const el = new ValueData(b);
 				const xml = el.toXml();
-				el.value = Buffer.alloc(1);
+				el.value = new Uint8Array(1);
 				el.fromXml(xml);
-				strictEqual(el.value.toString('base64'), b.toString('base64'));
+				deepStrictEqual(el.value, b);
 			});
 
 			void it('length: 1', () => {
-				const b = Buffer.alloc(1);
+				const b = new Uint8Array(1);
 				const el = new ValueData(b);
 				const xml = el.toXml();
-				el.value = Buffer.alloc(0);
+				el.value = new Uint8Array(0);
 				el.fromXml(xml);
-				strictEqual(el.value.toString('base64'), b.toString('base64'));
+				deepStrictEqual(el.value, b);
 			});
 
 			void it('length: 2', () => {
-				const b = Buffer.alloc(2);
+				const b = new Uint8Array(2);
 				const el = new ValueData(b);
 				const xml = el.toXml();
-				el.value = Buffer.alloc(0);
+				el.value = new Uint8Array(0);
 				el.fromXml(xml);
-				strictEqual(el.value.toString('base64'), b.toString('base64'));
+				deepStrictEqual(el.value, b);
 			});
 
 			void it('length: 3', () => {
-				const b = Buffer.alloc(3);
+				const b = new Uint8Array(3);
 				const el = new ValueData(b);
 				const xml = el.toXml();
-				el.value = Buffer.alloc(0);
+				el.value = new Uint8Array(0);
 				el.fromXml(xml);
-				strictEqual(el.value.toString('base64'), b.toString('base64'));
+				deepStrictEqual(el.value, b);
 			});
 
 			void it('length: 10', () => {
-				const b = Buffer.alloc(10);
+				const b = new Uint8Array(10);
 				const el = new ValueData(b);
 				const xml = el.toXml();
-				el.value = Buffer.alloc(0);
+				el.value = new Uint8Array(0);
 				el.fromXml(xml);
-				strictEqual(el.value.toString('base64'), b.toString('base64'));
+				deepStrictEqual(el.value, b);
 			});
 
 			void it('length: 100', () => {
-				const b = Buffer.alloc(100);
+				const b = new Uint8Array(100);
 				const el = new ValueData(b);
 				const xml = el.toXml();
-				el.value = Buffer.alloc(0);
+				el.value = new Uint8Array(0);
 				el.fromXml(xml);
-				strictEqual(el.value.toString('base64'), b.toString('base64'));
+				deepStrictEqual(el.value, b);
 			});
 
 			void it('length: 100', () => {
-				const b = Buffer.alloc(100);
+				const b = new Uint8Array(100);
 				const el = new ValueData(b);
 				const xml = el.toXml();
-				el.value = Buffer.alloc(0);
+				el.value = new Uint8Array(0);
 				el.fromXml(xml);
-				strictEqual(el.value.toString('base64'), b.toString('base64'));
+				deepStrictEqual(el.value, b);
 			});
 
 			void it('charset', () => {
@@ -146,13 +146,6 @@ void describe('value/data', () => {
 					].join('\n')
 				);
 				strictEqual(el.value.length, 48);
-			});
-
-			void it('baddata', () => {
-				const el = new ValueData();
-				throws(() => {
-					el.fromXml('<data>-</data>');
-				});
 			});
 
 			void it('children', () => {

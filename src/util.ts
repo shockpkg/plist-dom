@@ -1,5 +1,18 @@
 import {DOMParser} from '@xmldom/xmldom';
 
+const B6 = 0x3f;
+const B8 = 0xff;
+const C64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+const C64M = [
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+	-1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60,
+	61, -1, -1, -1, 64, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12,
+	13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1,
+	26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44,
+	45, 46, 47, 48, 49, 50, 51
+];
+
 export interface IText {
 	nodeValue: string | null;
 }
@@ -185,4 +198,102 @@ export function stringChunk(str: string, len: number) {
 		r.push(s.substring(0, len));
 	}
 	return r;
+}
+
+/**
+ * Base64 encode function mirroring decode function.
+ *
+ * @param data Byte array.
+ * @returns Base64 string.
+ */
+export function base64Encode(data: Uint8Array) {
+	const l = data.length;
+	let r = '';
+	for (let i = 0; i < l; ) {
+		const a = data[i++];
+		const b = i < l ? data[i++] : null;
+		const c = i < l ? data[i++] : null;
+		// eslint-disable-next-line no-bitwise
+		const o = (a << 16) | ((b || 0) << 8) | (c || 0);
+		r +=
+			// eslint-disable-next-line no-bitwise
+			C64[o >> 18] +
+			// eslint-disable-next-line no-bitwise
+			C64[(o >> 12) & B6] +
+			// eslint-disable-next-line no-bitwise
+			C64[b === null ? 64 : (o >> 6) & B6] +
+			// eslint-disable-next-line no-bitwise
+			C64[c === null ? 64 : o & B6];
+	}
+	return r;
+}
+
+/**
+ * Base64 decode function that matches plist parsing behavior.
+ *
+ * @param base64 Base64 string.
+ * @returns Byte array.
+ */
+export function base64Decode(base64: string) {
+	const l = base64.length;
+	const r = [];
+	OUTER: for (let a, b, c, d, m, z, i = 0; i < l; ) {
+		for (;;) {
+			if ((m = C64M[base64.charCodeAt(i++)]) >= 0) {
+				a = m;
+				break;
+			}
+			if (i >= l) {
+				break OUTER;
+			}
+		}
+		for (;;) {
+			if ((m = C64M[base64.charCodeAt(i++)]) >= 0) {
+				b = m;
+				break;
+			}
+			if (i >= l) {
+				break OUTER;
+			}
+		}
+		for (;;) {
+			if ((m = C64M[base64.charCodeAt(i++)]) >= 0) {
+				c = m;
+				break;
+			}
+			if (i >= l) {
+				break OUTER;
+			}
+		}
+		for (;;) {
+			if ((m = C64M[base64.charCodeAt(i++)]) >= 0) {
+				d = m;
+				break;
+			}
+			if (i >= l) {
+				break OUTER;
+			}
+		}
+		// eslint-disable-next-line no-bitwise
+		z = ((a & B6) << 18) | ((b & B6) << 12) | ((c & B6) << 6) | (d & B6);
+		// eslint-disable-next-line default-case, no-nested-ternary
+		switch (c > B6 ? (d > B6 ? 2 : 0) : d > B6 ? 1 : 0) {
+			case 0: {
+				// eslint-disable-next-line no-bitwise
+				r.push((z >> 16) & B8, (z >> 8) & B8, z & B8);
+				break;
+			}
+			case 1: {
+				// eslint-disable-next-line no-bitwise
+				r.push((z >> 16) & B8, (z >> 8) & B8);
+				break;
+			}
+			case 2: {
+				// eslint-disable-next-line no-bitwise
+				r.push((z >> 16) & B8);
+				break;
+			}
+		}
+	}
+	return new Uint8Array(r);
 }

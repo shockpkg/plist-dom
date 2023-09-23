@@ -4,7 +4,14 @@ import {
 	IToXmlOptions,
 	NEWLINE_STRING
 } from '../options';
-import {IElement, assertXmlTagName, stringChunk, xmlElementText} from '../util';
+import {
+	IElement,
+	assertXmlTagName,
+	base64Decode,
+	base64Encode,
+	stringChunk,
+	xmlElementText
+} from '../util';
 import {Value} from '../value';
 
 /**
@@ -24,14 +31,14 @@ export class ValueData extends Value {
 	/**
 	 * Value value.
 	 */
-	public value = Buffer.alloc(0);
+	public value: Uint8Array;
 
 	/**
 	 * ValueData constructor.
 	 *
 	 * @param value The value.
 	 */
-	constructor(value = Buffer.alloc(0)) {
+	constructor(value = new Uint8Array(0)) {
 		super();
 
 		this.value = value;
@@ -42,11 +49,8 @@ export class ValueData extends Value {
 	 */
 	public fromXmlElement(element: Readonly<IElement>) {
 		assertXmlTagName(element, 'data');
-		const b64 = xmlElementText(element)?.nodeValue || '';
-		if (!/^[0-9a-z+/\s]*[=]?\s*[=]?\s*$/i.test(b64)) {
-			throw new Error(`Invalid base64 data: ${b64}`);
-		}
-		this.value = Buffer.from(b64, 'base64');
+		const text = xmlElementText(element)?.nodeValue || '';
+		this.value = base64Decode(text);
 	}
 
 	/**
@@ -59,11 +63,11 @@ export class ValueData extends Value {
 		const p = indentString.repeat(depth);
 		const r = [`${p}<data>`];
 		if (c > 0) {
-			for (const s of stringChunk(this.value.toString('base64'), c)) {
+			for (const s of stringChunk(base64Encode(this.value), c)) {
 				r.push(`${p}${s}`);
 			}
 		} else {
-			r.push(`${p}${this.value.toString('base64')}`);
+			r.push(`${p}${base64Encode(this.value)}`);
 		}
 		r.push(`${p}</data>`);
 		return r.join(newlineString);
