@@ -1,7 +1,7 @@
 import {INDENT_ROOT, IToXmlOptions, NEWLINE_STRING} from './options';
 import {IElement, xmlDecode, xmlElementChildElements} from './util';
 import {Value} from './value';
-import {ValueArray} from './value/array';
+import {ValueDict} from './value/dict';
 
 const xmlDeclaration = '<?xml version="1.0" encoding="UTF-8"?>';
 const xmlDoctype =
@@ -130,7 +130,7 @@ export class Plist {
 	 * @returns Value element.
 	 */
 	public childFromXmlElement(element: IElement) {
-		const a = new ValueArray();
+		const a = new ValueDict();
 		return a.childFromXmlElement(element);
 	}
 

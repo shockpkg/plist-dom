@@ -1,6 +1,7 @@
 /* eslint-disable max-nested-callbacks */
 import {describe, it} from 'node:test';
 import {ok, strictEqual, throws} from 'node:assert';
+import {readFile} from 'node:fs/promises';
 
 import {Plist} from './plist';
 import {ValueBoolean} from './value/boolean';
@@ -173,6 +174,15 @@ void describe('document', () => {
 				if (value) {
 					strictEqual(value.toXml(), new ValueBoolean(false).toXml());
 				}
+			});
+
+			void it('hdiutil', async () => {
+				const xml = await readFile(
+					'./spec/fixtures/hdiutil.plist',
+					'utf8'
+				);
+				const doc = new Plist();
+				doc.fromXml(xml);
 			});
 		});
 	});

@@ -7,7 +7,12 @@ import {
 } from '../util';
 import {Value} from '../value';
 
-import * as tags from './index';
+import {ValueArray} from './array';
+import {ValueBoolean} from './boolean';
+import {ValueData} from './data';
+import {ValueInteger} from './integer';
+import {ValueReal} from './real';
+import {ValueString} from './string';
 
 let childTagNames: Readonly<Map<string, new () => Value>>;
 
@@ -33,11 +38,17 @@ export class ValueDict extends Value {
 	public static get CHILD_TAG_NAMES() {
 		if (!childTagNames) {
 			childTagNames = new Map();
-			for (const ValueType of Object.values(tags)) {
-				if (ValueType?.prototype instanceof Value) {
-					for (const t of ValueType.TAG_NAMES) {
-						childTagNames.set(t, ValueType);
-					}
+			for (const ValueType of [
+				ValueArray,
+				ValueBoolean,
+				ValueData,
+				ValueDict,
+				ValueInteger,
+				ValueReal,
+				ValueString
+			]) {
+				for (const t of ValueType.TAG_NAMES) {
+					childTagNames.set(t, ValueType);
 				}
 			}
 		}
