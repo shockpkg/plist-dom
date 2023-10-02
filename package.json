@@ -63,7 +63,6 @@
 		"@babel/core": "^7.23.0",
 		"@babel/preset-env": "^7.22.20",
 		"@babel/preset-typescript": "^7.23.0",
-		"@types/entities": "^1.1.1",
 		"@types/node": "^20.8.0",
 		"@typescript-eslint/eslint-plugin": "^6.7.3",
 		"@typescript-eslint/parser": "^6.7.3",
