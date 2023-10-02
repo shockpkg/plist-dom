@@ -4,7 +4,6 @@ export const DATA_COLUMNS = 68;
 export const INDENT_ROOT = false;
 
 export interface IToXmlOptions {
-	//
 	/**
 	 * Indent string.
 	 *
