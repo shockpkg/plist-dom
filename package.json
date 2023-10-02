@@ -4,9 +4,8 @@
 	"version": "4.0.2",
 	"keywords": [
 		"shockpkg",
-		"package",
-		"manager",
 		"plist",
+		"xml",
 		"dom",
 		"parse",
 		"parser",
@@ -14,7 +13,8 @@
 		"encoder",
 		"decode",
 		"decoder",
-		"mac"
+		"mac",
+		"macos"
 	],
 	"main": "cjs/index",
 	"exports": {
