@@ -8,7 +8,7 @@ Package for parsing and encoding a plist document
 [![size](https://packagephobia.now.sh/badge?p=@shockpkg/plist-dom)](https://packagephobia.now.sh/result?p=@shockpkg/plist-dom)
 [![downloads](https://img.shields.io/npm/dm/@shockpkg/plist-dom.svg)](https://npmcharts.com/compare/@shockpkg/plist-dom?minimal=true)
 
-[![Build Status](https://github.com/shockpkg/plist-dom/workflows/main/badge.svg?branch=master)](https://github.com/shockpkg/plist-dom/actions?query=workflow%3Amain+branch%3Amaster)
+[![Build Status](https://github.com/shockpkg/plist-dom/workflows/main/badge.svg)](https://github.com/shockpkg/plist-dom/actions?query=workflow%3Amain+branch%3Amaster)
 
 # Overview
 
