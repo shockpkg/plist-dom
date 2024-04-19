@@ -35,6 +35,7 @@ export class ValueDict extends Value {
 	 *
 	 * @returns Child tag names map.
 	 */
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	public static get CHILD_TAG_NAMES() {
 		if (!childTagNames) {
 			childTagNames = new Map();
