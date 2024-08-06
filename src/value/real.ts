@@ -1,6 +1,6 @@
-import {INDENT_STRING, IToXmlOptions} from '../options';
-import {IElement, assertXmlTagName, xmlElementText} from '../util';
-import {Value} from '../value';
+import {INDENT_STRING, IToXmlOptions} from '../options.ts';
+import {IElement, assertXmlTagName, xmlElementText} from '../util.ts';
+import {Value} from '../value.ts';
 
 /**
  * ValueReal object.

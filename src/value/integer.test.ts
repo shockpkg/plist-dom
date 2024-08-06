@@ -2,7 +2,7 @@
 import {describe, it} from 'node:test';
 import {strictEqual, throws} from 'node:assert';
 
-import {ValueInteger} from './integer';
+import {ValueInteger} from './integer.ts';
 
 const small = '9007199254740991';
 const smallPos = `+${small}`;

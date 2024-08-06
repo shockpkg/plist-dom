@@ -3,9 +3,9 @@ import {describe, it} from 'node:test';
 import {ok, strictEqual, throws} from 'node:assert';
 import {readFile} from 'node:fs/promises';
 
-import {Plist} from './plist';
-import {ValueBoolean} from './value/boolean';
-import {ValueString} from './value/string';
+import {Plist} from './plist.ts';
+import {ValueBoolean} from './value/boolean.ts';
+import {ValueString} from './value/string.ts';
 
 /**
  * Extract plist body XML.

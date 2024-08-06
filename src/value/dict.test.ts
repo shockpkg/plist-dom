@@ -2,9 +2,9 @@
 import {describe, it} from 'node:test';
 import {ok, strictEqual, throws} from 'node:assert';
 
-import {Value} from '../value';
+import {Value} from '../value.ts';
 
-import {ValueDict} from './dict';
+import {ValueDict} from './dict.ts';
 
 void describe('value/dict', () => {
 	void describe('ValueDict', () => {

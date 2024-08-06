@@ -1,10 +1,10 @@
-import {INDENT_STRING, IToXmlOptions} from '../options';
+import {INDENT_STRING, IToXmlOptions} from '../options.ts';
 import {
 	IElement,
 	assertNoXmlElementChildNodes,
 	assertXmlTagName
-} from '../util';
-import {Value} from '../value';
+} from '../util.ts';
+import {Value} from '../value.ts';
 
 /**
  * ValueBoolean object.

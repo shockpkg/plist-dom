@@ -1,7 +1,7 @@
 import {describe, it} from 'node:test';
 import {deepStrictEqual, strictEqual} from 'node:assert';
 
-import {base64Decode, base64Encode, xmlDecode} from './util';
+import {base64Decode, base64Encode, xmlDecode} from './util.ts';
 
 void describe('util', () => {
 	void describe('xmlDecode', () => {

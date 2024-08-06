@@ -2,9 +2,9 @@
 import {describe, it} from 'node:test';
 import {strictEqual, throws} from 'node:assert';
 
-import {Value} from '../value';
+import {Value} from '../value.ts';
 
-import {ValueArray} from './array';
+import {ValueArray} from './array.ts';
 
 void describe('value/array', () => {
 	void describe('ValueArray', () => {

@@ -1,5 +1,5 @@
-import {IToXmlOptions} from './options';
-import {IElement, xmlDecode} from './util';
+import {IToXmlOptions} from './options.ts';
+import {IElement, xmlDecode} from './util.ts';
 
 /**
  * Value object.

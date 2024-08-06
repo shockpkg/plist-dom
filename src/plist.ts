@@ -1,7 +1,7 @@
-import {INDENT_ROOT, IToXmlOptions, NEWLINE_STRING} from './options';
-import {IElement, xmlDecode, xmlElementChildElements} from './util';
-import {Value} from './value';
-import {ValueDict} from './value/dict';
+import {INDENT_ROOT, IToXmlOptions, NEWLINE_STRING} from './options.ts';
+import {IElement, xmlDecode, xmlElementChildElements} from './util.ts';
+import {Value} from './value.ts';
+import {ValueDict} from './value/dict.ts';
 
 const xmlDeclaration = '<?xml version="1.0" encoding="UTF-8"?>';
 const xmlDoctype =

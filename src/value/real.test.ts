@@ -2,7 +2,7 @@
 import {describe, it} from 'node:test';
 import {strictEqual, throws} from 'node:assert';
 
-import {ValueReal} from './real';
+import {ValueReal} from './real.ts';
 
 void describe('value/real', () => {
 	void describe('ValueReal', () => {

@@ -2,7 +2,7 @@
 import {describe, it} from 'node:test';
 import {strictEqual, throws} from 'node:assert';
 
-import {ValueString} from './string';
+import {ValueString} from './string.ts';
 
 void describe('value/string', () => {
 	void describe('ValueString', () => {

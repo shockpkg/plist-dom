@@ -2,7 +2,7 @@
 import {describe, it} from 'node:test';
 import {deepStrictEqual, strictEqual, throws} from 'node:assert';
 
-import {ValueData} from './data';
+import {ValueData} from './data.ts';
 
 void describe('value/data', () => {
 	void describe('ValueData', () => {

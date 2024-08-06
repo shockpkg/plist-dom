@@ -2,7 +2,7 @@
 import {describe, it} from 'node:test';
 import {deepStrictEqual, strictEqual, throws} from 'node:assert';
 
-import {ValueDate} from './date';
+import {ValueDate} from './date.ts';
 
 void describe('value/integer', () => {
 	void describe('ValueDate', () => {

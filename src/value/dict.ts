@@ -1,18 +1,18 @@
-import {INDENT_STRING, NEWLINE_STRING, IToXmlOptions} from '../options';
+import {INDENT_STRING, NEWLINE_STRING, IToXmlOptions} from '../options.ts';
 import {
 	IElement,
 	assertXmlTagName,
 	xmlElementChildElements,
 	xmlElementText
-} from '../util';
-import {Value} from '../value';
+} from '../util.ts';
+import {Value} from '../value.ts';
 
-import {ValueArray} from './array';
-import {ValueBoolean} from './boolean';
-import {ValueData} from './data';
-import {ValueInteger} from './integer';
-import {ValueReal} from './real';
-import {ValueString} from './string';
+import {ValueArray} from './array.ts';
+import {ValueBoolean} from './boolean.ts';
+import {ValueData} from './data.ts';
+import {ValueInteger} from './integer.ts';
+import {ValueReal} from './real.ts';
+import {ValueString} from './string.ts';
 
 let childTagNames: Readonly<Map<string, new () => Value>>;
 

@@ -2,7 +2,7 @@
 import {describe, it} from 'node:test';
 import {strictEqual, throws} from 'node:assert';
 
-import {ValueBoolean} from './boolean';
+import {ValueBoolean} from './boolean.ts';
 
 void describe('value/boolean', () => {
 	void describe('ValueBoolean', () => {

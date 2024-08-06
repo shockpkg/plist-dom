@@ -3,15 +3,15 @@ import {
 	INDENT_STRING,
 	IToXmlOptions,
 	NEWLINE_STRING
-} from '../options';
+} from '../options.ts';
 import {
 	IElement,
 	assertXmlTagName,
 	base64Decode,
 	base64Encode,
 	xmlElementText
-} from '../util';
-import {Value} from '../value';
+} from '../util.ts';
+import {Value} from '../value.ts';
 
 /**
  * ValueData object.

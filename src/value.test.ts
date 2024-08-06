@@ -3,9 +3,9 @@
 import {describe, it} from 'node:test';
 import {ok, strictEqual, throws} from 'node:assert';
 
-import {IToXmlOptions} from './options';
-import {IElement} from './util';
-import {Value} from './value';
+import {IToXmlOptions} from './options.ts';
+import {IElement} from './util.ts';
+import {Value} from './value.ts';
 
 class ValueA extends Value {
 	public static readonly TYPE = 'ValueA';
