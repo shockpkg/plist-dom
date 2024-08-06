@@ -37,7 +37,6 @@ export function xmlDecode(xml: string) {
 	let doctype: string | null = null;
 
 	const errors: string[] = [];
-	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
 	const parser = new DOMParser({
 		locator: {},
 		errorHandler: {
