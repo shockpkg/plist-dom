@@ -83,8 +83,9 @@ void describe('util', () => {
 		const input = 'ABCDEFGHIJKL';
 		for (let i = 0; i <= input.length; i++) {
 			void it(`length: ${i}`, () => {
-				const s = input.substring(0, i);
+				const s = input.slice(0, i);
 				const d = base64Decode(Buffer.from(s).toString('base64'));
+				// eslint-disable-next-line unicorn/prefer-code-point
 				strictEqual(String.fromCharCode(...d), s);
 			});
 		}

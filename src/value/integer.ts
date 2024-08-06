@@ -11,6 +11,7 @@ const MAX_NUM = 0x1fffffffffffff;
  */
 function assertInteger(value: number | bigint) {
 	if (typeof value === 'number' && !Number.isInteger(value)) {
+		// eslint-disable-next-line unicorn/prefer-type-error
 		throw new Error(`Value not an integer: ${value}`);
 	}
 }
@@ -70,7 +71,7 @@ export class ValueInteger extends Value {
 	public fromXmlElement(element: Readonly<IElement>) {
 		assertXmlTagName(element, 'integer');
 		const text = xmlElementText(element)?.nodeValue || '';
-		if (!/^[-+]?[0-9]+$/.test(text)) {
+		if (!/^[+-]?\d+$/.test(text)) {
 			throw new Error(`Invalid integer data: ${text}`);
 		}
 		const num = +text;

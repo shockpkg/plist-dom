@@ -146,7 +146,7 @@ export class Plist {
 
 		const v = this.value;
 		return [
-			...[this.xmlDeclaration, this.xmlDoctype].filter(s => s),
+			...[this.xmlDeclaration, this.xmlDoctype].filter(Boolean),
 			'<plist version="1.0">',
 			...(v ? [v.toXml(options, ir ? 1 : 0)] : []),
 			'</plist>',

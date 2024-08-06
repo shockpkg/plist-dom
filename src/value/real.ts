@@ -38,7 +38,7 @@ export class ValueReal extends Value {
 	public fromXmlElement(element: Readonly<IElement>) {
 		assertXmlTagName(element, 'real');
 		const text = xmlElementText(element)?.nodeValue || '';
-		if (!/^[-+]?([0-9]+|[0-9]*\.[0-9]+)$/.test(text)) {
+		if (!/^[+-]?(\d+|\d*\.\d+)$/.test(text)) {
 			throw new Error(`Invalid real data: ${text}`);
 		}
 		this.value = +text;

@@ -61,8 +61,8 @@ export class ValueData extends Value {
 		const p = (options?.indentString ?? INDENT_STRING).repeat(depth);
 		let r = `${p}<data>`;
 		if (c > 0) {
-			for (let s = base64Encode(this.value); s; s = s.substring(c)) {
-				r += `${n}${p}${s.substring(0, c)}`;
+			for (let s = base64Encode(this.value); s; s = s.slice(c)) {
+				r += `${n}${p}${s.slice(0, c)}`;
 			}
 		} else {
 			r += `${n}${p}${base64Encode(this.value)}`;

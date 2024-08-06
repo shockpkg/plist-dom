@@ -14,7 +14,7 @@ import {ValueString} from './value/string';
  * @returns XML body.
  */
 function plistBodyExtract(s: string) {
-	return s.replace(/^[\s\S]*<plist[^>]*>([\s\S]*)<\/plist>\n*$/, '$1');
+	return s.replace(/^[\S\s]*<plist[^>]*>([\S\s]*)<\/plist>\n*$/, '$1');
 }
 
 void describe('document', () => {
@@ -144,7 +144,7 @@ void describe('document', () => {
 				const doc = new Plist(new ValueBoolean(true));
 				const linesA = doc.toXml().split('\n');
 				strictEqual(linesA[2], '<plist version="1.0">');
-				strictEqual(linesA[linesA.length - 2], '</plist>');
+				strictEqual(linesA.at(-2), '</plist>');
 			});
 
 			void it('trailing newline', () => {

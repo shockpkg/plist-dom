@@ -224,6 +224,7 @@ export function base64Decode(base64: string) {
 	const r = [];
 	OUTER: for (let a, b, c, d, m, z, i = 0; i < l; ) {
 		for (;;) {
+			// eslint-disable-next-line unicorn/prefer-code-point
 			if ((m = C64M[base64.charCodeAt(i++)]) >= 0) {
 				a = m;
 				break;
@@ -233,6 +234,7 @@ export function base64Decode(base64: string) {
 			}
 		}
 		for (;;) {
+			// eslint-disable-next-line unicorn/prefer-code-point
 			if ((m = C64M[base64.charCodeAt(i++)]) >= 0) {
 				b = m;
 				break;
@@ -242,6 +244,7 @@ export function base64Decode(base64: string) {
 			}
 		}
 		for (;;) {
+			// eslint-disable-next-line unicorn/prefer-code-point
 			if ((m = C64M[base64.charCodeAt(i++)]) >= 0) {
 				c = m;
 				break;
@@ -251,6 +254,7 @@ export function base64Decode(base64: string) {
 			}
 		}
 		for (;;) {
+			// eslint-disable-next-line unicorn/prefer-code-point
 			if ((m = C64M[base64.charCodeAt(i++)]) >= 0) {
 				d = m;
 				break;
